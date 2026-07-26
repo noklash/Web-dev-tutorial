@@ -1,1109 +1,827 @@
-# JavaScript Crash Course
+# JavaScript Module
 
 # Session 1 (Part 2)
 
-**Duration:** ~2 Hours
+## Live Project — Student Grade Checker
 
-**Session Title:** Data Types, Operators, User Input, Conditionals & Functions
+Congratulations! 🎉
 
----
+You've learned about:
 
-# Learning Objectives
+* Variables
+* Data types
+* `console.log()`
+* Operators
+* User input
+* Conditional statements
 
-By the end of this lesson, students should be able to:
-
-* Identify JavaScript primitive and reference data types.
-* Use the `typeof` operator.
-* Perform arithmetic and logical operations.
-* Understand type conversion.
-* Accept user input.
-* Make decisions using conditional statements.
-* Write reusable functions.
-* Prepare for DOM manipulation in the next lesson.
+Now it's time to combine everything you've learned into your first JavaScript application.
 
 ---
 
-# Lesson Outline
+# Project Overview
 
-| Time   | Topic                  |
-| ------ | ---------------------- |
-| 20 min | JavaScript Data Types  |
-| 10 min | typeof Operator        |
-| 20 min | Operators              |
-| 15 min | Type Conversion        |
-| 10 min | User Input             |
-| 25 min | Conditional Statements |
-| 20 min | Functions              |
-| 10 min | Class Challenge        |
+In this project, you will build a **Student Grade Checker**.
 
----
+The application will:
 
-# Recap from Part 1
+* Accept a student's name
+* Accept a student's score
+* Calculate the student's grade
+* Display an appropriate message
 
-Ask students:
-
-* What is JavaScript?
-* Difference between HTML, CSS and JavaScript?
-* What is a variable?
-* Difference between `let` and `const`?
+By the end of this project, you'll understand how JavaScript works with HTML and CSS to create interactive web pages.
 
 ---
 
-# JavaScript Data Types
+# What the Application Will Look Like
 
-Everything stored in JavaScript has a **type**.
+```text
+---------------------------------------
 
-Think of data types as different kinds of containers.
+Student Grade Checker
 
-A bottle stores water.
+Student Name
 
-A wallet stores money.
+[_____________________]
 
-A variable stores a particular type of data.
+Student Score
 
-Example
+[_____________________]
 
-```javascript
-let name = "David";
-let age = 25;
-let isStudent = true;
+[ Check Grade ]
+
+---------------------------------------
+
+Hello John!
+
+Your Score: 78
+
+Grade: A
+
+Excellent Performance!
+
+---------------------------------------
 ```
 
-Although all are variables, they hold different types of information.
+Although this is a simple project, it demonstrates many of the core ideas you'll use in larger applications.
 
 ---
 
-# Primitive Data Types
+# Step 1 — Create the HTML
 
-JavaScript has seven primitive data types.
+Open **index.html** and replace its contents with the following:
 
-For beginners, focus on these six:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Checker</title>
 
-* String
-* Number
-* Boolean
-* Undefined
-* Null
-* BigInt (brief introduction)
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-(Symbol can be mentioned but isn't necessary at this stage.)
+<div class="container">
 
----
+    <h1>Student Grade Checker</h1>
 
-## 1. String
+    <label for="studentName">Student Name</label>
 
-A string represents text.
+    <input
+        type="text"
+        id="studentName"
+        placeholder="Enter your name"
+    >
 
-Examples
+    <label for="studentScore">Student Score</label>
 
-```javascript
-let firstName = "David";
+    <input
+        type="number"
+        id="studentScore"
+        placeholder="Enter your score"
+    >
 
-let country = "Nigeria";
+    <button id="checkGrade">
 
-let course = 'Frontend Development';
-```
+        Check Grade
 
-Strings can use either single or double quotes.
+    </button>
 
-```javascript
-"Hello"
+    <div id="result"></div>
 
-'Hello'
-```
+</div>
 
-Both are valid.
+<script src="script.js"></script>
 
----
-
-### Common String Examples
-
-```javascript
-let email = "john@gmail.com";
-
-let phone = "08012345678";
-
-let address = "Port Harcourt";
+</body>
+</html>
 ```
 
 ---
 
-## 2. Number
+# Understanding the HTML
 
-Numbers include both whole numbers and decimals.
+Let's break it down.
 
-```javascript
-let age = 20;
+## The Heading
 
-let score = 95;
-
-let temperature = 28.5;
+```html
+<h1>Student Grade Checker</h1>
 ```
 
-Unlike some programming languages, JavaScript has one general `number` type for both integers and floating-point values.
+This simply displays the title of the application.
 
 ---
 
-## 3. Boolean
+## The Input Fields
 
-A Boolean only has two possible values.
-
-```javascript
-true
-
-false
+```html
+<input
+type="text"
+id="studentName"
+>
 ```
 
-Example
+This allows the user to enter their name.
 
-```javascript
-let isLoggedIn = true;
+Notice the `id`.
 
-let hasPaid = false;
-
-let isOnline = true;
+```html
+id="studentName"
 ```
 
-Booleans are commonly used in conditions.
+The `id` acts like a unique name for the element.
+
+Later, JavaScript will use this `id` to find the input on the page.
 
 ---
 
-## 4. Undefined
+The second input
 
-Undefined means:
-
-> A variable has been declared but has not yet been assigned a value.
-
-Example
-
-```javascript
-let username;
-
-console.log(username);
+```html
+<input
+type="number"
+id="studentScore"
+>
 ```
 
-Output
+accepts only numbers.
 
-```javascript
-undefined
-```
+This is where the student enters their score.
 
 ---
 
-## 5. Null
+## The Button
 
-Null means:
+```html
+<button id="checkGrade">
 
-> The value has intentionally been set to "nothing."
+Check Grade
 
-Example
-
-```javascript
-let profilePicture = null;
+</button>
 ```
 
-Difference
-
-```javascript
-undefined
-
-↓
-
-No value assigned yet.
-```
-
-```javascript
-null
-
-↓
-
-Value intentionally removed or empty.
-```
+When this button is clicked, JavaScript will check the student's grade.
 
 ---
 
-## 6. BigInt (Brief Introduction)
+## The Result Area
 
-Used for extremely large integers.
-
-Example
-
-```javascript
-const population = 12345678901234567890n;
+```html
+<div id="result"></div>
 ```
 
-Explain that students won't use BigInt often during this course, but it exists for very large numbers.
+At the moment, this section is empty.
+
+Later, JavaScript will display the student's result here.
 
 ---
 
-# Reference Data Types
+# Step 2 — Styling the Page
 
-Reference types store more complex information.
+Open **style.css**
 
-The two you'll use constantly are:
+```css
+*{
 
-* Objects
-* Arrays
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:#f2f5fa;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:100vh;
+
+}
+
+.container{
+
+    width:420px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:10px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+
+}
+
+h1{
+
+    text-align:center;
+
+    color:#2563eb;
+
+    margin-bottom:25px;
+
+}
+
+label{
+
+    display:block;
+
+    margin-top:15px;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:6px;
+
+    font-size:16px;
+
+}
+
+button{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:14px;
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+button:hover{
+
+    background:#1d4ed8;
+
+}
+
+#result{
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border-radius:8px;
+
+    background:#eef4ff;
+
+    min-height:80px;
+
+}
+```
+
+Save the file.
+
+Refresh your browser.
+
+You should now have a clean-looking application.
+
+Notice that although it looks good, clicking the button does nothing.
+
+That's because we haven't written any JavaScript yet.
 
 ---
 
-# Objects
+# Step 3 — Selecting HTML Elements
 
-Objects store related information.
+Before JavaScript can work with an element, it must first find it.
 
-Example
+Open **script.js**
 
-```javascript
-const student = {
-
-    name: "John",
-
-    age: 22,
-
-    course: "Frontend"
-
-};
-```
-
-Explain each property.
-
-Think of an object as a digital identity card.
-
-```
-Student
-
-Name
-
-John
-
-Age
-
-22
-
-Course
-
-Frontend
-```
-
----
-
-Accessing object properties
+The first thing we'll do is select the elements we need.
 
 ```javascript
-console.log(student.name);
+const studentName =
+document.querySelector("#studentName");
 
-console.log(student.course);
-```
+const studentScore =
+document.querySelector("#studentScore");
 
----
+const checkGrade =
+document.querySelector("#checkGrade");
 
-# Arrays
-
-Arrays store lists.
-
-Example
-
-```javascript
-const fruits = [
-
-"Apple",
-
-"Orange",
-
-"Mango",
-
-"Banana"
-
-];
-```
-
-Think of an array as numbered shelves.
-
-```
-0 Apple
-
-1 Orange
-
-2 Mango
-
-3 Banana
-```
-
----
-
-Accessing array items
-
-```javascript
-console.log(fruits[0]);
-
-console.log(fruits[2]);
-```
-
----
-
-# typeof Operator
-
-JavaScript provides a built-in operator called `typeof`.
-
-It tells us the data type of a value.
-
-Example
-
-```javascript
-console.log(typeof "Hello");
-```
-
-Output
-
-```
-string
-```
-
----
-
-More examples
-
-```javascript
-console.log(typeof 50);
-```
-
-```
-number
+const result =
+document.querySelector("#result");
 ```
 
 ---
 
+## What is `document`?
+
+The word
+
 ```javascript
-console.log(typeof true);
+document
 ```
 
-```
-boolean
-```
+represents the current webpage.
+
+Everything you see on the page belongs to the document.
 
 ---
 
+## What is `querySelector()`?
+
+The method
+
 ```javascript
-console.log(typeof undefined);
+querySelector()
 ```
 
+searches the webpage and returns the first matching element.
+
+For example,
+
+```javascript
+document.querySelector("#studentName")
 ```
-undefined
-```
+
+means
+
+> Find the element whose `id` is `studentName`.
+
+Notice the `#`.
+
+Whenever you're selecting an element by its `id`, you must include the `#`.
 
 ---
 
-Interesting Example
+# Step 4 — Listening for a Click
+
+Now let's make the button respond when it's clicked.
 
 ```javascript
-console.log(typeof null);
-```
+checkGrade.addEventListener("click", function(){
 
-Output
+    console.log("Button Clicked");
 
-```
-object
-```
-
-Explain:
-
-This is a long-standing quirk in JavaScript dating back to its early implementation. Even though `typeof null` returns `"object"`, `null` is **not** actually an object. Modern developers simply learn this behaviour and work around it when necessary.
-
----
-
-# Activity
-
-Ask students to predict the output before running:
-
-```javascript
-console.log(typeof "Frontend");
-
-console.log(typeof 500);
-
-console.log(typeof false);
-
-console.log(typeof ["Apple","Orange"]);
-
-console.log(typeof {
-    name:"John"
 });
 ```
 
-Discuss why arrays also return `"object"`.
+Save your file.
+
+Open the browser.
+
+Press **F12** and go to the **Console**.
+
+Now click the button several times.
+
+You should see
+
+```text
+Button Clicked
+
+Button Clicked
+
+Button Clicked
+```
+
+This tells us that JavaScript is responding to the click.
 
 ---
 
-# Operators
+# Understanding Events
 
-Operators allow JavaScript to perform actions on values.
+An **event** is simply something that happens on a webpage.
 
----
+Examples include:
 
-## Arithmetic Operators
+* Clicking a button
+* Typing in a textbox
+* Moving the mouse
+* Pressing a key
+* Submitting a form
 
-```javascript
-+
+JavaScript waits for these events and then performs an action.
 
--
+Think of it like a doorbell.
 
-*
-
-/
-
-%
-
-**
-```
-
----
-
-Example
-
-```javascript
-let a = 20;
-
-let b = 10;
-
-console.log(a + b);
-
-console.log(a - b);
-
-console.log(a * b);
-
-console.log(a / b);
-```
-
----
-
-### Modulus
-
-Returns the remainder.
-
-```javascript
-console.log(10 % 2);
-```
-
-Output
-
-```
-0
-```
-
----
-
-```javascript
-console.log(7 % 2);
-```
-
-Output
-
-```
-1
-```
-
-Excellent for checking whether a number is even or odd.
-
----
-
-### Exponentiation
-
-```javascript
-console.log(2 ** 3);
-```
-
-Output
-
-```
-8
-```
-
----
-
-# Assignment Operators
-
-```javascript
-=
-
-+=
-
--=
-
-*=
-
-/=
-```
-
-Example
-
-```javascript
-let score = 50;
-
-score += 10;
-
-console.log(score);
-```
-
-Output
-
-```
-60
-```
-
----
-
-# Increment and Decrement
-
-Increment
-
-```javascript
-let count = 1;
-
-count++;
-
-console.log(count);
-```
-
----
-
-Decrement
-
-```javascript
-count--;
-```
-
----
-
-# Comparison Operators
-
-Used to compare values.
-
-```
->
-
-<
-
->=
-
-<=
-
-==
-===
-
-!=
-
-!==
-```
-
----
-
-Example
-
-```javascript
-console.log(10 > 5);
-```
-
-Output
-
-```
-true
-```
-
----
-
-## == vs ===
-
-This is one of the most important concepts in JavaScript.
-
-Example
-
-```javascript
-console.log(5 == "5");
-```
-
-Output
-
-```
-true
-```
-
-Why?
-
-Because `==` performs **type coercion**, converting values before comparing them.
-
----
-
-Now
-
-```javascript
-console.log(5 === "5");
-```
-
-Output
-
-```
-false
-```
-
-`===` compares both **value** and **type**.
-
-**Instructor Tip:** Encourage students to use `===` by default. It helps avoid subtle bugs.
-
----
-
-# Logical Operators
-
-```
-&&
-
-||
-
-!
-```
-
----
-
-AND
-
-```javascript
-let hasID = true;
-
-let hasTicket = true;
-
-console.log(hasID && hasTicket);
-```
-
----
-
-OR
-
-```javascript
-console.log(hasID || hasTicket);
-```
-
----
-
-NOT
-
-```javascript
-console.log(!true);
-```
-
-Output
-
-```
-false
-```
-
----
-
-# Type Conversion
-
-Sometimes we need to convert one data type into another.
-
----
-
-## String to Number
-
-Imagine the user types:
-
-```
-25
-```
-
-It looks like a number but JavaScript receives it as a string.
-
-```javascript
-let age = "25";
-
-console.log(typeof age);
-```
-
-Output
-
-```
-string
-```
-
----
-
-Convert it
-
-```javascript
-age = Number(age);
-
-console.log(typeof age);
-```
-
-Output
-
-```
-number
-```
-
----
-
-## Number to String
-
-```javascript
-let score = 80;
-
-score = String(score);
-```
-
----
-
-## Boolean Conversion
-
-```javascript
-Boolean(1);
-```
-
-returns
-
-```
-true
-```
-
----
-
-```javascript
-Boolean(0);
-```
-
-returns
-
-```
-false
-```
-
-Briefly explain that JavaScript considers some values "truthy" and others "falsy", a topic you'll explore in more depth later.
-
----
-
-# User Input
-
-JavaScript provides simple functions for interacting with users.
-
----
-
-## alert()
-
-Displays a message.
-
-```javascript
-alert("Welcome to JavaScript!");
-```
-
----
-
-## prompt()
-
-Collects text input.
-
-```javascript
-let name = prompt("What is your name?");
-```
-
----
-
-Display it
-
-```javascript
-alert("Welcome " + name);
-```
-
----
-
-## confirm()
-
-Returns either `true` or `false`.
-
-```javascript
-let answer = confirm("Do you want to continue?");
-```
-
----
-
-# Classroom Exercise
-
-Ask students to build a simple greeting.
-
-```javascript
-let name = prompt("Enter your name");
-
-alert("Hello " + name);
-```
-
----
-
-# Conditional Statements
-
-Computers make decisions using conditions.
-
-Example
-
-```
-IF it rains
+```text
+Visitor presses the bell
 
 ↓
 
-Take an umbrella
+The bell rings
+
+↓
+
+Someone opens the door
+```
+
+In our application:
+
+```text
+User clicks button
+
+↓
+
+JavaScript detects the click
+
+↓
+
+JavaScript checks the grade
 ```
 
 ---
 
-## if Statement
+# Step 5 — Reading User Input
+
+Suppose the user types
+
+```text
+John
+```
+
+How do we get that value?
+
+We use `.value`.
 
 ```javascript
-let age = 20;
+console.log(studentName.value);
+```
 
-if(age >= 18){
+If the user enters
 
-    console.log("Adult");
+```text
+John
+```
+
+the console displays
+
+```text
+John
+```
+
+The `.value` property returns whatever the user typed into an input field.
+
+---
+
+Let's also read the student's score.
+
+```javascript
+console.log(studentScore.value);
+```
+
+Remember that the value returned from an input field is **text (a string)**, even when the input type is `number`.
+
+We'll convert it to a number before making comparisons.
+
+---
+
+# Step 6 — Writing the Main Program
+
+Replace your click event with the following:
+
+```javascript
+checkGrade.addEventListener("click", function(){
+
+    const name = studentName.value;
+
+    const score = Number(studentScore.value);
+
+    console.log(name);
+
+    console.log(score);
+
+});
+```
+
+Now try entering your own name and score.
+
+Open the console and check that the values are printed correctly.
+
+---
+
+# Step 7 — Validating User Input
+
+What happens if the user clicks the button without entering anything?
+
+The program should not continue.
+
+Let's check for empty fields.
+
+```javascript
+if(name === "" || studentScore.value === ""){
+
+    result.textContent =
+    "Please complete all fields.";
+
+    return;
 
 }
 ```
 
+The `return` statement immediately stops the function.
+
+Without it, the rest of the program would continue running.
+
+Input validation is important because it prevents incorrect or incomplete data from being processed.
+
 ---
 
-## if...else
+# Step 8 — Calculating the Grade
+
+Now let's determine the student's grade.
 
 ```javascript
-let score = 40;
+let grade = "";
 
-if(score >= 50){
-
-    console.log("Pass");
-
-}else{
-
-    console.log("Fail");
-
-}
+let message = "";
 ```
 
----
+These variables will store the final grade and the accompanying message.
 
-## else if
+Next, add the grading logic.
 
 ```javascript
-let score = 75;
-
 if(score >= 70){
 
-    console.log("Grade A");
+    grade = "A";
 
-}else if(score >= 60){
+    message = "Excellent Performance!";
 
-    console.log("Grade B");
+}
+else if(score >= 60){
 
-}else if(score >= 50){
+    grade = "B";
 
-    console.log("Grade C");
+    message = "Very Good!";
 
-}else{
+}
+else if(score >= 50){
 
-    console.log("Fail");
+    grade = "C";
+
+    message = "Good Job!";
+
+}
+else if(score >= 45){
+
+    grade = "D";
+
+    message = "Fair. Keep Practising.";
+
+}
+else{
+
+    grade = "F";
+
+    message = "Needs Improvement.";
 
 }
 ```
 
+This program checks the score from the highest range down to the lowest.
+
 ---
 
-## switch Statement
+# Step 9 — Displaying the Result
 
-Useful when checking one value against many options.
+Now replace the contents of the result box.
 
 ```javascript
-let day = "Monday";
+result.innerHTML = `
 
-switch(day){
+<h2>Hello ${name}!</h2>
 
-case "Monday":
+<p><strong>Score:</strong> ${score}</p>
 
-    console.log("New week");
+<p><strong>Grade:</strong> ${grade}</p>
 
-    break;
+<p>${message}</p>
 
-case "Friday":
-
-    console.log("Weekend is near");
-
-    break;
-
-default:
-
-    console.log("Normal day");
-
-}
+`;
 ```
 
-Explain why `break` is important—it stops execution from continuing into the next case.
+Notice the use of backticks (`` ` ``).
 
----
+These are called **template literals**.
 
-# Functions
-
-Functions are reusable blocks of code.
-
-Instead of repeating code many times, write it once and call it whenever needed.
-
----
-
-## Function Declaration
+They allow us to insert variables directly into a string using:
 
 ```javascript
-function greet(){
-
-    console.log("Welcome");
-
-}
+${variableName}
 ```
 
-Calling it
+This is cleaner and easier to read than joining strings with the `+` operator.
+
+---
+
+# Complete JavaScript Code
 
 ```javascript
-greet();
+const studentName = document.querySelector("#studentName");
+const studentScore = document.querySelector("#studentScore");
+const checkGrade = document.querySelector("#checkGrade");
+const result = document.querySelector("#result");
+
+checkGrade.addEventListener("click", function(){
+
+    const name = studentName.value.trim();
+
+    const scoreText = studentScore.value.trim();
+
+    if(name === "" || scoreText === ""){
+
+        result.textContent = "Please complete all fields.";
+
+        return;
+
+    }
+
+    const score = Number(scoreText);
+
+    let grade = "";
+    let message = "";
+
+    if(score >= 70){
+
+        grade = "A";
+        message = "Excellent Performance!";
+
+    }
+    else if(score >= 60){
+
+        grade = "B";
+        message = "Very Good!";
+
+    }
+    else if(score >= 50){
+
+        grade = "C";
+        message = "Good Job!";
+
+    }
+    else if(score >= 45){
+
+        grade = "D";
+        message = "Fair. Keep Practising.";
+
+    }
+    else{
+
+        grade = "F";
+        message = "Needs Improvement.";
+
+    }
+
+    result.innerHTML = `
+        <h2>Hello ${name}!</h2>
+        <p><strong>Score:</strong> ${score}</p>
+        <p><strong>Grade:</strong> ${grade}</p>
+        <p>${message}</p>
+    `;
+
+});
 ```
 
 ---
 
-## Parameters
+# Try It Yourself
 
-```javascript
-function greet(name){
+Make the following improvements to your project:
 
-    console.log("Welcome " + name);
+1. Display the student's name in **uppercase**.
+2. Show a different message for each grade.
+3. Display **"Perfect Score!"** if the student scores **100**.
+4. Display an error message if the score is less than **0** or greater than **100**.
 
-}
-```
-
-Call it
-
-```javascript
-greet("David");
-
-greet("Mary");
-
-greet("James");
-```
-
-One function can work with many different values.
+Try to solve these challenges on your own before asking for help. Making mistakes is part of learning to program.
 
 ---
 
-## Returning Values
+# Common Mistakes
+
+### 1. Forgetting `.value`
+
+Incorrect:
 
 ```javascript
-function add(a,b){
-
-    return a + b;
-
-}
-
-let result = add(10,20);
-
-console.log(result);
+console.log(studentName);
 ```
 
-Explain that `return` sends a value back to wherever the function was called.
+This prints the HTML element, not the text inside it.
 
----
-
-## Arrow Functions
-
-Modern JavaScript syntax
+Correct:
 
 ```javascript
-const add = (a,b)=>{
-
-    return a+b;
-
-};
+console.log(studentName.value);
 ```
 
-Short version
+---
+
+### 2. Comparing Text Instead of Numbers
+
+Incorrect:
 
 ```javascript
-const multiply = (a,b)=> a * b;
+const score = studentScore.value;
 ```
 
-Mention that arrow functions will become very common when students begin learning React.
-
----
-
-# Live Coding Challenge
-
-Build a simple calculator.
+Correct:
 
 ```javascript
-let firstNumber = Number(prompt("Enter first number"));
-
-let secondNumber = Number(prompt("Enter second number"));
-
-function add(a,b){
-
-    return a+b;
-
-}
-
-let answer = add(firstNumber, secondNumber);
-
-alert("The answer is " + answer);
+const score = Number(studentScore.value);
 ```
 
-### Instructor Discussion
-
-Ask students:
-
-* What happens if you remove `Number()`?
-* Why does `"10" + "20"` produce `"1020"` instead of `30`?
-* What if the user clicks **Cancel** in the prompt?
-* How could we improve the program to handle invalid input?
-
-These questions encourage students to think beyond simply writing code and begin reasoning about how programs behave.
+Converting the input ensures that numerical comparisons behave as expected.
 
 ---
 
-# End-of-Class Exercise
+### 3. Misspelling an `id`
 
-Create a small program that:
+If your HTML contains:
 
-1. Asks for a student's name.
-2. Asks for their score.
-3. Converts the score to a number.
-4. Displays:
+```html
+id="studentScore"
+```
 
-   * **Excellent** if the score is 70 or above.
-   * **Good** if the score is between 50 and 69.
-   * **Needs Improvement** if the score is below 50.
+then JavaScript must use exactly the same spelling.
 
----
-
-# Homework
-
-1. Create variables representing yourself (name, age, country, favourite programming language).
-2. Use `typeof` to determine the type of each variable.
-3. Build a simple calculator that performs addition, subtraction, multiplication, and division.
-4. Create a grading system using `if...else if`.
-5. Write three reusable functions:
-
-   * `add()`
-   * `subtract()`
-   * `multiply()`
+IDs are **case-sensitive**.
 
 ---
 
-# Summary
+### 4. Forgetting to Save Your Files
 
-In this lesson, students learned:
+If nothing changes in the browser, make sure you've saved:
 
-* Primitive and reference data types.
-* The `typeof` operator.
-* Arithmetic, comparison, assignment, and logical operators.
-* Explicit type conversion using `Number()`, `String()`, and `Boolean()`.
-* Basic user interaction with `alert()`, `prompt()`, and `confirm()`.
-* Decision-making with `if`, `else if`, and `switch`.
-* Function declarations, parameters, return values, and arrow functions.
+* `index.html`
+* `style.css`
+* `script.js`
 
-These concepts form the foundation for the next part, where students will begin building a **Student Registration System** using HTML, CSS, and JavaScript. They'll learn how to connect JavaScript to the page, read form input, respond to button clicks, validate user input, and dynamically update the interface using the DOM.
+before refreshing the page.
+
+---
+
+# Session 1 Summary
+
+Congratulations! You've completed your first JavaScript project.
+
+In this session, you learned how to:
+
+* Link JavaScript to an HTML page.
+* Use the browser console for testing.
+* Store information in variables.
+* Work with different data types.
+* Perform calculations using operators.
+* Make decisions with `if...else`.
+* Read user input from form fields.
+* Respond to button clicks.
+* Update a webpage dynamically using JavaScript.
+
+These are the building blocks of interactive web development. In the next session, you'll build on this foundation by learning how to organise your code with **functions**, work with **arrays**, and repeat tasks using **loops**.
