@@ -1,432 +1,160 @@
-# JavaScript Crash Course
+# JavaScript Module
 
-# Session 1 (Part 1)
+# Session 1 – JavaScript Fundamentals
 
 **Duration:** 2 Hours
 
-**Session Title:** JavaScript Fundamentals – Introduction, Variables & Data Types
+**Project:** Student Grade Checker
 
 ---
 
 # Learning Objectives
 
-At the end of this lesson, students should be able to:
+By the end of this session, you should be able to:
 
 * Explain what JavaScript is.
-* Explain the relationship between HTML, CSS and JavaScript.
-* Understand where JavaScript runs.
-* Create JavaScript files.
-* Connect JavaScript to HTML.
-* Use the browser developer tools.
+* Explain the difference between HTML, CSS and JavaScript.
+* Set up a JavaScript project.
+* Use the browser Developer Tools.
+* Print information using `console.log()`.
 * Declare variables using `let` and `const`.
-* Identify JavaScript data types.
-* Use the `typeof` operator.
-* Follow JavaScript naming conventions.
-* Write simple JavaScript programs.
+* Identify common JavaScript data types.
+* Use operators.
+* Write simple conditional statements.
+* Build your first JavaScript application.
 
 ---
 
-# Prerequisites
+# Before We Begin
 
-Students should already know:
+Think about some websites you use every day.
 
-* HTML Elements
-* Forms
-* Buttons
-* CSS Selectors
-* Basic CSS Styling
+* YouTube
+* Facebook
+* Instagram
+* Netflix
+* WhatsApp Web
+* Amazon
 
----
-
-# Lesson Outline
-
-| Time   | Topic                            |
-| ------ | -------------------------------- |
-| 10 min | Introduction to JavaScript       |
-| 10 min | History of JavaScript            |
-| 15 min | How JavaScript Works             |
-| 10 min | JavaScript in Modern Development |
-| 15 min | Setting Up the Environment       |
-| 20 min | Variables                        |
-| 25 min | Data Types                       |
-| 15 min | Live Coding Challenge            |
-
----
-
-# Introduction
-
-Ask the class:
-
-> **What makes websites interactive?**
+Have you noticed that when you click a button, something immediately happens?
 
 Examples:
 
-* Why does Facebook update without refreshing?
-* How does YouTube play videos?
-* Why does Amazon update the shopping cart instantly?
-* How does WhatsApp Web receive messages?
+* Clicking the **Like** button increases the number of likes.
+* Typing in a search box instantly shows suggestions.
+* Clicking **Add to Cart** updates your shopping cart.
+* Logging in takes you to your dashboard.
 
-Let students answer.
+Can HTML do these things?
 
-After a few responses, explain:
+No.
 
-> HTML creates the structure.
+Can CSS do these things?
 
-Example:
+No.
 
-```
-A house frame
-```
+So what makes them happen?
 
----
-
-CSS provides the appearance.
-
-```
-Paint
-Furniture
-Lighting
-Decoration
-```
-
----
-
-JavaScript provides behaviour.
-
-```
-Opening doors
-
-Turning lights on
-
-Moving objects
-
-Playing music
-
-Submitting forms
-
-Updating pages
-
-Fetching information
-```
-
----
-
-Without JavaScript
-
-```
-HTML
-
-↓
-
-Static Website
-```
-
-With JavaScript
-
-```
-HTML
-     +
-CSS
-     +
-JavaScript
-
-↓
-
-Interactive Website
-```
-
----
-
-# Real-World Examples
-
-Ask students:
-
-Which of these use JavaScript?
-
-* Facebook ✔
-* Netflix ✔
-* Instagram ✔
-* WhatsApp Web ✔
-* Gmail ✔
-* Google Maps ✔
-* Spotify ✔
-
-Almost every modern website relies on JavaScript.
+**JavaScript.**
 
 ---
 
 # What is JavaScript?
 
-JavaScript is a high-level, interpreted programming language primarily used to create interactive web applications.
+JavaScript is a programming language used to make web pages interactive.
 
-It allows developers to:
+HTML creates the structure.
 
-* Respond to user actions
-* Update page content
-* Validate forms
-* Create animations
-* Communicate with servers
-* Build complete web applications
+CSS makes the page beautiful.
 
----
+JavaScript makes the page behave.
 
-## JavaScript Is Everywhere
+Think of building a car.
 
-Many beginners believe JavaScript only works inside web browsers.
+```text
+Car Body
+    ↓
+HTML
 
-That was true many years ago, but not today.
+Paint & Interior
+    ↓
+CSS
 
-JavaScript can now be used for:
-
-### Frontend Development
-
-Examples:
-
-* Websites
-* Dashboards
-* Landing pages
-
-Frameworks:
-
-* React
-* Vue
-* Angular
-
----
-
-### Backend Development
-
-Using Node.js
-
-Examples:
-
-* APIs
-* Authentication
-* Databases
-* Payment Systems
-
----
-
-### Mobile Apps
-
-Using:
-
-* React Native
-* NativeScript
-
-Examples:
-
-* Instagram
-* Discord
-* Shopify Mobile
-
----
-
-### Desktop Applications
-
-Using Electron
-
-Examples:
-
-* VS Code
-* Discord
-* Slack
-* Postman
-
----
-
-### Artificial Intelligence
-
-JavaScript is increasingly used to:
-
-* Build AI-powered web applications
-* Consume AI APIs
-* Build chatbots
-* Run TensorFlow.js models in the browser
-
----
-
-### Internet of Things (IoT)
-
-JavaScript can control:
-
-* Smart devices
-* Sensors
-* Raspberry Pi
-* Robotics
-
----
-
-# Brief History of JavaScript
-
-Understanding the history helps students appreciate why the language looks the way it does.
-
-### 1995
-
-Netscape wanted a scripting language for its browser.
-
-Brendan Eich was hired.
-
-He created JavaScript in just **10 days**.
-
-Although often repeated, "created in 10 days" refers to the first working version. The language has evolved dramatically over the decades.
-
----
-
-### Original Name
-
-It was first called:
-
-```
-Mocha
-```
-
-Then
-
-```
-LiveScript
-```
-
-Finally
-
-```
+Engine
+    ↓
 JavaScript
 ```
 
-The name "JavaScript" was chosen largely for marketing reasons because Java was very popular at the time.
+Without the engine, the car looks nice but cannot move.
 
-**Important:** JavaScript and Java are completely different programming languages.
-
-| Java                         | JavaScript                       |
-| ---------------------------- | -------------------------------- |
-| Compiled                     | Interpreted/JIT                  |
-| Runs on JVM                  | Runs in browsers & Node.js       |
-| Strongly typed               | Dynamically typed                |
-| Used for enterprise software | Used heavily for web development |
+Without JavaScript, a webpage may look beautiful but cannot respond to user actions.
 
 ---
 
-# ECMAScript
+# HTML, CSS and JavaScript Working Together
 
-Many beginners hear the word **ECMAScript** and think it is a different language.
+Imagine you're building a simple login page.
 
-Explain:
+### HTML
 
-JavaScript is the language.
+Creates:
 
-ECMAScript is the official specification that defines how JavaScript should behave.
+* Username field
+* Password field
+* Login button
 
-Think of it this way:
+### CSS
 
-```
-Recipe  → ECMAScript
+Makes it look attractive.
 
-Meal → JavaScript
-```
+### JavaScript
 
-Browser vendors follow the ECMAScript specification when implementing JavaScript engines.
+Checks whether:
 
----
+* Username is correct
+* Password is correct
+* Displays an error if they're wrong
+* Redirects the user after a successful login
 
-### Modern JavaScript
+Each language has its own responsibility.
 
-Today we mostly use ES6+ features such as:
-
-* `let`
-* `const`
-* Arrow functions
-* Classes
-* Modules
-* Template literals
-* Destructuring
-
-These make code cleaner and easier to maintain.
+| Language   | Responsibility |
+| ---------- | -------------- |
+| HTML       | Structure      |
+| CSS        | Styling        |
+| JavaScript | Behaviour      |
 
 ---
 
-# How JavaScript Works in the Browser
+# Where Does JavaScript Run?
 
-When a user opens a webpage:
+Originally, JavaScript only ran inside web browsers.
 
-```
-Browser
+Today, JavaScript runs in many places:
 
-↓
+* Web browsers
+* Servers (Node.js)
+* Mobile apps
+* Desktop applications
+* Smart devices
+* AI-powered web applications
 
-Downloads HTML
-
-↓
-
-Parses HTML
-
-↓
-
-Downloads CSS
-
-↓
-
-Applies styles
-
-↓
-
-Downloads JavaScript
-
-↓
-
-Executes JavaScript
-```
-
----
-
-### The DOM
-
-The browser converts HTML into a structure called the **Document Object Model (DOM)**.
-
-Think of the DOM as a live tree that JavaScript can inspect and modify.
-
-For example, if your HTML contains:
-
-```html
-<h1>Welcome</h1>
-```
-
-JavaScript can change it to:
-
-```html
-<h1>Welcome to JavaScript Class</h1>
-```
-
-without reloading the page.
-
----
-
-# Browser vs Node.js
-
-| Browser                       | Node.js                                         |
-| ----------------------------- | ----------------------------------------------- |
-| Runs in Chrome, Firefox, Edge | Runs outside the browser                        |
-| Can manipulate HTML           | Cannot manipulate HTML directly                 |
-| Used for websites             | Used for servers and tools                      |
-| Has `document` and `window`   | Does not have `document` or `window` by default |
-
-Tell students:
-
-> During this bootcamp, we will start by writing JavaScript in the browser. Later in the course, you'll encounter tools like Node.js when working with packages and modern frontend tooling.
+For this course, we'll focus on **JavaScript in the browser**.
 
 ---
 
 # Setting Up Our Project
 
-Create a folder:
+Create a folder called:
 
-```
+```text
 javascript-session-1
 ```
 
-Inside:
+Inside it, create these files:
 
-```
-javascript-session-1/
+```text
+javascript-session-1
 
 │
 
@@ -437,15 +165,13 @@ javascript-session-1/
 └── script.js
 ```
 
-Explain the purpose of each file:
-
-* `index.html` – Structure
-* `style.css` – Appearance
-* `script.js` – Behaviour
+This is a common project structure for small web applications.
 
 ---
 
 # Creating the HTML File
+
+Open **index.html** and type the following:
 
 ```html
 <!DOCTYPE html>
@@ -459,7 +185,7 @@ Explain the purpose of each file:
 </head>
 <body>
 
-    <h1>Welcome to JavaScript</h1>
+    <h1>Learning JavaScript</h1>
 
     <script src="script.js"></script>
 
@@ -467,186 +193,282 @@ Explain the purpose of each file:
 </html>
 ```
 
-### Instructor Note
+## Understanding the Code
 
-Ask students:
+### Linking the CSS file
 
-> Why is the `<script>` tag placed just before `</body>`?
+```html
+<link rel="stylesheet" href="style.css">
+```
 
-Expected discussion:
+This tells the browser:
 
-* The browser loads the HTML first.
-* The elements already exist when JavaScript runs.
-* It avoids errors when selecting page elements.
-* It can improve perceived page loading.
-
-Mention that modern projects may also use the `defer` attribute when placing scripts in the `<head>`, which you'll cover later.
+> "Load the styles from **style.css**."
 
 ---
 
-# Creating style.css
+### Linking the JavaScript file
+
+```html
+<script src="script.js"></script>
+```
+
+This tells the browser:
+
+> "Load and execute the code inside **script.js**."
+
+---
+
+# Why is the `<script>` Tag at the Bottom?
+
+Notice that we placed it just before the closing `</body>` tag.
+
+```html
+<body>
+
+    ...
+
+    <script src="script.js"></script>
+
+</body>
+```
+
+This is a common practice because we want the browser to load the HTML first before running JavaScript.
+
+Later in the course, you'll learn another approach using the `defer` attribute.
+
+---
+
+# Styling the Page
+
+Open **style.css**
 
 ```css
 body{
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family: Arial, sans-serif;
+
     background:#f4f4f4;
-    margin:40px;
+
+    padding:40px;
+
 }
 
 h1{
+
     color:#2563eb;
+
 }
 ```
 
+Save the file.
+
+Refresh the browser.
+
+Your heading should now appear in blue.
+
 ---
 
-# Creating script.js
+# Writing Your First JavaScript
+
+Open **script.js**
+
+Type:
 
 ```javascript
 console.log("Welcome to JavaScript!");
 ```
 
+Save.
+
+Nothing appears on the webpage.
+
+Does that mean it didn't work?
+
+No.
+
+The output is displayed in the **Console**.
+
 ---
 
-# Browser Developer Tools
+# Opening Developer Tools
 
-Demonstrate:
+In Google Chrome:
 
-Open Chrome.
+Press
 
-Right-click
-
-Inspect
-
-OR
-
-```
+```text
 F12
 ```
 
-Show:
+or
 
-* Elements
-* Console
-* Sources
-* Network
+Right-click anywhere on the page
 
-Explain that the **Console** is the programmer's workspace for testing code, inspecting values, and finding errors.
+↓
 
----
+Inspect
 
-# Using console.log()
+↓
 
-```javascript
-console.log("Hello World");
+Console
+
+You should see:
+
+```text
+Welcome to JavaScript!
 ```
 
-Explain that `console.log()` sends information to the browser's console for debugging. It does **not** display text on the webpage.
+Congratulations!
+
+You have just executed your first JavaScript program.
 
 ---
 
-More examples:
+# Understanding `console.log()`
+
+The `console.log()` function prints information to the browser's console.
+
+It is mainly used for:
+
+* Testing code
+* Debugging
+* Displaying values
+* Understanding what your program is doing
+
+Examples:
 
 ```javascript
-console.log(50);
-
-console.log(true);
-
 console.log("Frontend Development");
+```
+
+```javascript
+console.log(100);
+```
+
+```javascript
+console.log(true);
+```
+
+```javascript
+console.log("Hello", "World");
 ```
 
 ---
 
 # Variables
 
-Imagine a storage box.
+Imagine you have a labelled storage box.
 
+Instead of carrying an item everywhere, you put it inside the box.
+
+Later, whenever you need it, you simply open the box.
+
+Variables work in exactly the same way.
+
+A variable stores information so it can be used later.
+
+---
+
+Instead of writing
+
+```javascript
+"John"
 ```
-Variable
 
-↓
+many times...
 
-Stores Information
-```
-
-Instead of repeatedly typing the same value, we store it in a variable.
-
-Example:
+Store it once.
 
 ```javascript
 let studentName = "John";
 ```
 
-Now we can reuse `studentName` wherever needed.
+Now you can use
+
+```javascript
+studentName
+```
+
+anywhere in your program.
 
 ---
 
-## Declaring Variables
+# Declaring Variables
 
-### let
+JavaScript provides different ways to declare variables.
 
-Use `let` when the value may change.
-
-```javascript
-let age = 20;
-
-age = 21;
-```
-
----
-
-### const
-
-Use `const` when the value should not be reassigned.
-
-```javascript
-const school = "Frontend Academy";
-```
-
-Trying to reassign it:
-
-```javascript
-school = "Backend Academy";
-```
-
-will produce an error.
-
----
-
-### Why We Avoid `var`
-
-Explain briefly:
-
-* Function-scoped instead of block-scoped.
-* Can be redeclared.
-* Leads to bugs in larger applications.
-
-For modern JavaScript, use:
+The two you'll use most often are:
 
 * `let`
 * `const`
 
 ---
 
+## Using `let`
+
+Use `let` when the value may change.
+
+Example:
+
+```javascript
+let age = 18;
+```
+
+Later...
+
+```javascript
+age = 19;
+```
+
+This is allowed because variables declared with `let` can be reassigned.
+
+---
+
+## Using `const`
+
+Use `const` when the value should remain the same.
+
+Example:
+
+```javascript
+const country = "Nigeria";
+```
+
+Trying to change it:
+
+```javascript
+country = "Ghana";
+```
+
+produces an error.
+
+As a general rule:
+
+* Use `const` by default.
+* Use `let` only when you know the value will change.
+
+---
+
 # Variable Naming Rules
 
-Valid:
+Good variable names make code easier to read.
+
+Valid examples:
 
 ```javascript
 let studentName;
 
-let studentAge;
+let firstName;
 
 let totalScore;
 
-let first_name;
+let favouriteColour;
 
-let student1;
+const schoolName = "ABC Academy";
 ```
 
----
-
-Invalid:
+Invalid examples:
 
 ```javascript
 let 1student;
@@ -654,69 +476,498 @@ let 1student;
 let first name;
 
 let let;
-
-let @name;
 ```
 
 ---
 
-# Naming Best Practices
+# Naming Convention
 
-Use meaningful names:
+JavaScript commonly uses **camelCase**.
 
-```javascript
-let totalPrice;
-```
-
-instead of:
-
-```javascript
-let x;
-```
-
-Prefer **camelCase**:
+Example:
 
 ```javascript
 studentName
 ```
 
-rather than:
+Not:
 
 ```javascript
 student_name
 ```
 
-unless your team follows a different convention.
+or
+
+```javascript
+StudentName
+```
+
+Use names that clearly describe what the variable stores.
+
+Good:
+
+```javascript
+let totalMarks;
+```
+
+Poor:
+
+```javascript
+let x;
+```
 
 ---
 
-# Live Coding Challenge
+# JavaScript Data Types
 
-Ask students to create variables for:
+Not all information is the same.
 
-* Their name
-* Their age
-* Their favourite food
-* Their dream job
+Names are different from numbers.
+
+Numbers are different from true or false values.
+
+JavaScript categorises information into **data types**.
+
+Today, we'll learn the most common ones.
+
+---
+
+## String
+
+A string stores text.
+
+Examples:
+
+```javascript
+let name = "Mary";
+```
+
+```javascript
+let city = "Port Harcourt";
+```
+
+```javascript
+let course = "Frontend Development";
+```
+
+Strings are enclosed in quotation marks.
+
+---
+
+## Number
+
+Numbers are used for calculations.
+
+Examples:
+
+```javascript
+let age = 22;
+
+let score = 85;
+
+let temperature = 30.5;
+```
+
+Notice that numbers are **not** placed inside quotation marks.
+
+---
+
+## Boolean
+
+A Boolean has only two values.
+
+```javascript
+true
+```
+
+or
+
+```javascript
+false
+```
 
 Example:
 
 ```javascript
-let studentName = "Amina";
-let age = 22;
-let favouriteFood = "Jollof Rice";
-const dreamJob = "Frontend Developer";
+let hasPaid = true;
 
-console.log(studentName);
-console.log(age);
-console.log(favouriteFood);
-console.log(dreamJob);
+let isLoggedIn = false;
 ```
 
-Have students run the code and inspect the output in the browser console.
+These are often used when making decisions.
 
 ---
 
-## End of Part 1
+## Undefined
 
-In the next part, you'll cover **data types in depth**, the `typeof` operator, operators, type conversion, user input, conditionals, and begin the **Student Registration System** project where students start interacting with the DOM using real HTML, CSS, and JavaScript.
+Undefined means:
+
+The variable exists, but no value has been assigned.
+
+Example:
+
+```javascript
+let email;
+
+console.log(email);
+```
+
+Output:
+
+```text
+undefined
+```
+
+---
+
+## Null
+
+Null means:
+
+"There is intentionally no value."
+
+Example:
+
+```javascript
+let profilePhoto = null;
+```
+
+Think of it as an empty placeholder.
+
+---
+
+# The `typeof` Operator
+
+Sometimes you may not know what type of data a variable contains.
+
+JavaScript provides the `typeof` operator.
+
+Example:
+
+```javascript
+let name = "John";
+
+console.log(typeof name);
+```
+
+Output:
+
+```text
+string
+```
+
+---
+
+More examples:
+
+```javascript
+console.log(typeof 100);
+```
+
+Output:
+
+```text
+number
+```
+
+---
+
+```javascript
+console.log(typeof true);
+```
+
+Output:
+
+```text
+boolean
+```
+
+---
+
+# Practice Activity
+
+Predict the output before running the code.
+
+```javascript
+console.log(typeof "Frontend");
+
+console.log(typeof 300);
+
+console.log(typeof false);
+```
+
+Were your predictions correct?
+
+If not, go back and review the data types.
+
+---
+
+# Operators
+
+Operators allow JavaScript to perform calculations and comparisons.
+
+---
+
+## Arithmetic Operators
+
+Suppose:
+
+```javascript
+let a = 20;
+
+let b = 5;
+```
+
+Addition:
+
+```javascript
+a + b
+```
+
+Result:
+
+```text
+25
+```
+
+Subtraction:
+
+```javascript
+a - b
+```
+
+Result:
+
+```text
+15
+```
+
+Multiplication:
+
+```javascript
+a * b
+```
+
+Division:
+
+```javascript
+a / b
+```
+
+Remainder:
+
+```javascript
+a % b
+```
+
+---
+
+# Comparison Operators
+
+These compare values.
+
+Example:
+
+```javascript
+10 > 5
+```
+
+Result:
+
+```text
+true
+```
+
+---
+
+```javascript
+5 < 3
+```
+
+Result:
+
+```text
+false
+```
+
+---
+
+Common comparison operators include:
+
+```text
+>
+
+<
+
+>=
+
+<=
+
+==
+
+===
+
+!=
+```
+
+For beginners, remember this rule:
+
+Whenever possible, use:
+
+```javascript
+===
+```
+
+instead of:
+
+```javascript
+==
+```
+
+because it performs a stricter and more reliable comparison.
+
+---
+
+# User Input
+
+JavaScript can communicate with users.
+
+### Display a Message
+
+```javascript
+alert("Welcome to JavaScript!");
+```
+
+---
+
+### Ask a Question
+
+```javascript
+let name = prompt("What is your name?");
+```
+
+---
+
+### Display the Answer
+
+```javascript
+alert("Hello " + name);
+```
+
+Run the code and see what happens.
+
+---
+
+# Conditional Statements
+
+Sometimes our program needs to make decisions.
+
+Imagine this situation:
+
+If a student's score is greater than or equal to 50,
+
+display:
+
+```text
+Pass
+```
+
+Otherwise:
+
+```text
+Fail
+```
+
+This is called a conditional statement.
+
+---
+
+## Using `if`
+
+```javascript
+let score = 70;
+
+if(score >= 50){
+
+    console.log("Pass");
+
+}
+```
+
+---
+
+## Using `if...else`
+
+```javascript
+let score = 40;
+
+if(score >= 50){
+
+    console.log("Pass");
+
+}else{
+
+    console.log("Fail");
+
+}
+```
+
+---
+
+## Using `else if`
+
+```javascript
+let score = 85;
+
+if(score >= 70){
+
+    console.log("Excellent");
+
+}else if(score >= 50){
+
+    console.log("Good");
+
+}else{
+
+    console.log("Needs Improvement");
+
+}
+```
+
+---
+
+# Class Activity
+
+Write a program that checks a person's age.
+
+If the age is 18 or above, display:
+
+```text
+You can vote.
+```
+
+Otherwise, display:
+
+```text
+You are too young to vote.
+```
+
+Try it yourself before looking at the solution.
+
+---
+
+# Mini Project
+
+In the next part of this session, you'll build your first complete JavaScript application:
+
+## Student Grade Checker
+
+The application will:
+
+* Ask for a student's name.
+* Allow the student to enter a score.
+* Display the student's grade.
+* Display a personalised message.
+* Use HTML, CSS, and JavaScript together.
+
+This project will help you combine everything you've learned in this lesson into one practical application.
