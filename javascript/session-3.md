@@ -1,73 +1,929 @@
-# JavaScript Crash Course
+# JavaScript Module
 
-# Session 1 (Part 3)
+# Session 2 – Functions, Arrays & Loops
 
 **Duration:** 2 Hours
 
-**Session Title:** Live Project – Student Registration System (Introduction to the DOM)
-
-> **Instructor's Note**
->
-> This is the students' first real JavaScript application. Resist the temptation to type everything yourself. Let students write the code with you. Pause after every section, ask them to predict what will happen, then run the code together.
+**Project:** Student Attendance Register
 
 ---
 
 # Learning Objectives
 
-By the end of this lesson, students should be able to:
+By the end of this session, you should be able to:
 
-* Understand what the DOM is
-* Select HTML elements with JavaScript
-* Read values from form inputs
-* Listen for button click events
-* Validate user input
-* Create JavaScript objects
-* Dynamically update a webpage
-* Apply beginner debugging techniques
+* Understand why functions are important.
+* Create and call functions.
+* Use parameters and arguments.
+* Return values from functions.
+* Understand arrays and why they are useful.
+* Add and remove items from arrays.
+* Loop through arrays.
+* Understand basic objects.
+* Build a simple Student Attendance Register application.
 
 ---
 
-# The Project
+# Before We Begin
 
-Today we're building the first version of a **Student Registration System**.
+In the previous session, you built a **Student Grade Checker**.
 
-By the end of today's lesson, students will have an application that looks like this:
+Your application could:
+
+* Receive a student's name.
+* Receive a score.
+* Calculate a grade.
+* Display the result.
+
+However, imagine we want to expand the application.
+
+A school does not have only one student.
+
+A real school may have:
 
 ```text
-------------------------------------
-
-Student Registration System
-
-Name
-[________________]
-
-Age
-[________________]
-
-Course
-[________________]
-
-[ Register Student ]
-
-------------------------------------
-
-Registered Students
-
 John
-Age: 22
-Course: Frontend Development
 
-------------------------------------
+Mary
+
+David
+
+Sarah
+
+Michael
+
+...
 ```
 
-Later sessions will extend this into a complete Student Management Dashboard.
+How would we store all these students?
+
+One option would be:
+
+```javascript
+let student1 = "John";
+
+let student2 = "Mary";
+
+let student3 = "David";
+```
+
+This works for three students.
+
+But what about 1,000 students?
+
+Creating thousands of variables would be impossible.
+
+We need better ways to organize our data.
+
+This session introduces two important concepts:
+
+* **Functions** → Organise and reuse code.
+* **Arrays** → Store multiple values together.
 
 ---
 
-# Project Folder
+# Part 1 — Functions
+
+## What is a Function?
+
+A function is a reusable block of code that performs a specific task.
+
+Think about a calculator.
+
+A calculator has buttons:
 
 ```text
-student-registration/
++ Addition
+
+- Subtraction
+
+× Multiplication
+
+÷ Division
+```
+
+Each button performs a specific action.
+
+Functions work the same way.
+
+Instead of writing the same code repeatedly, we create a function once and use it whenever we need it.
+
+---
+
+# Without Functions
+
+Imagine we need to greet three students.
+
+We might write:
+
+```javascript
+console.log("Welcome John");
+
+console.log("Welcome Mary");
+
+console.log("Welcome David");
+```
+
+This works.
+
+But what if we have 500 students?
+
+The code becomes repetitive.
+
+---
+
+# With Functions
+
+We create one reusable function:
+
+```javascript
+function greet(){
+
+    console.log("Welcome Student");
+
+}
+```
+
+Now we can use it whenever we want.
+
+```javascript
+greet();
+
+greet();
+
+greet();
+```
+
+Output:
+
+```text
+Welcome Student
+
+Welcome Student
+
+Welcome Student
+```
+
+The function saves us from repeating code.
+
+---
+
+# Creating a Function
+
+The basic structure of a function looks like this:
+
+```javascript
+function functionName(){
+
+    // code goes here
+
+}
+```
+
+Example:
+
+```javascript
+function sayHello(){
+
+    console.log("Hello World");
+
+}
+```
+
+This creates the function.
+
+However, creating a function does not run it.
+
+We need to call it.
+
+---
+
+# Calling a Function
+
+To execute a function, write its name followed by parentheses.
+
+Example:
+
+```javascript
+sayHello();
+```
+
+Now the function runs.
+
+Output:
+
+```text
+Hello World
+```
+
+---
+
+# Functions with Parameters
+
+Sometimes we want a function to work with different values.
+
+For example:
+
+```text
+Welcome John
+
+Welcome Mary
+
+Welcome David
+```
+
+The names are different, but the action is the same.
+
+Instead of creating separate functions, we can use parameters.
+
+---
+
+Example:
+
+```javascript
+function greet(name){
+
+    console.log("Welcome " + name);
+
+}
+```
+
+Here:
+
+```javascript
+name
+```
+
+is a parameter.
+
+It acts like a placeholder.
+
+---
+
+Now we can give the function different values.
+
+```javascript
+greet("John");
+
+greet("Mary");
+
+greet("David");
+```
+
+Output:
+
+```text
+Welcome John
+
+Welcome Mary
+
+Welcome David
+```
+
+---
+
+# Parameters vs Arguments
+
+These two words are often confused.
+
+## Parameter
+
+A variable inside the function definition.
+
+Example:
+
+```javascript
+function greet(name){
+
+}
+```
+
+`name` is a parameter.
+
+---
+
+## Argument
+
+The actual value passed into the function.
+
+Example:
+
+```javascript
+greet("John");
+```
+
+`"John"` is an argument.
+
+---
+
+Think of it like a form.
+
+A form has empty fields:
+
+```text
+Name: __________
+```
+
+The empty field is the parameter.
+
+When someone fills it:
+
+```text
+Name: John
+```
+
+The value is the argument.
+
+---
+
+# Returning Values
+
+Sometimes a function needs to give us a result.
+
+Example:
+
+```javascript
+function add(a,b){
+
+    return a + b;
+
+}
+```
+
+Now:
+
+```javascript
+let result = add(10,5);
+
+console.log(result);
+```
+
+Output:
+
+```text
+15
+```
+
+---
+
+The difference:
+
+`console.log()`
+
+prints something.
+
+`return`
+
+sends something back.
+
+---
+
+Example:
+
+```javascript
+function multiply(a,b){
+
+    return a * b;
+
+}
+
+const answer = multiply(5,4);
+
+console.log(answer);
+```
+
+Output:
+
+```text
+20
+```
+
+---
+
+# Arrow Functions
+
+Modern JavaScript has another way to write functions.
+
+Traditional function:
+
+```javascript
+function greet(){
+
+    console.log("Hello");
+
+}
+```
+
+Arrow function:
+
+```javascript
+const greet = () => {
+
+    console.log("Hello");
+
+};
+```
+
+Both do the same thing.
+
+For now, focus mainly on normal functions.
+
+Arrow functions will become more familiar as you write more JavaScript.
+
+---
+
+# Practice Exercise 1
+
+Create a function called:
+
+```javascript
+introduce()
+```
+
+It should display:
+
+```text
+My name is John.
+
+I am learning JavaScript.
+```
+
+---
+
+# Part 2 — Arrays
+
+## What is an Array?
+
+An array is a special variable that stores multiple values.
+
+Instead of:
+
+```javascript
+let student1 = "John";
+
+let student2 = "Mary";
+
+let student3 = "David";
+```
+
+We can write:
+
+```javascript
+let students = [
+
+"John",
+
+"Mary",
+
+"David"
+
+];
+```
+
+One variable.
+
+Multiple values.
+
+---
+
+# Understanding Array Positions
+
+Arrays use indexes.
+
+Important:
+
+**Arrays start counting from zero.**
+
+Example:
+
+```javascript
+const students = [
+
+"John",
+
+"Mary",
+
+"David"
+
+];
+```
+
+The positions are:
+
+```text
+Index        Value
+
+0            John
+
+1            Mary
+
+2            David
+```
+
+---
+
+# Accessing Array Items
+
+To get an item, use its index.
+
+Example:
+
+```javascript
+console.log(students[0]);
+```
+
+Output:
+
+```text
+John
+```
+
+---
+
+```javascript
+console.log(students[2]);
+```
+
+Output:
+
+```text
+David
+```
+
+---
+
+# Updating Array Values
+
+Arrays can be changed.
+
+Example:
+
+```javascript
+let students = [
+
+"John",
+
+"Mary",
+
+"David"
+
+];
+```
+
+Change Mary:
+
+```javascript
+students[1] = "Sarah";
+```
+
+Now:
+
+```javascript
+console.log(students);
+```
+
+Output:
+
+```text
+[
+"John",
+"Sarah",
+"David"
+]
+```
+
+---
+
+# Array Length
+
+The `length` property tells us how many items are inside an array.
+
+Example:
+
+```javascript
+const students = [
+
+"John",
+
+"Mary",
+
+"David"
+
+];
+
+console.log(students.length);
+```
+
+Output:
+
+```text
+3
+```
+
+---
+
+# Adding Items to Arrays
+
+## push()
+
+Adds an item to the end.
+
+Example:
+
+```javascript
+students.push("Sarah");
+```
+
+Now:
+
+```text
+John
+
+Mary
+
+David
+
+Sarah
+```
+
+---
+
+# Removing Items
+
+## pop()
+
+Removes the last item.
+
+Example:
+
+```javascript
+students.pop();
+```
+
+Before:
+
+```text
+John
+
+Mary
+
+David
+```
+
+After:
+
+```text
+John
+
+Mary
+```
+
+---
+
+# Adding to the Beginning
+
+## unshift()
+
+```javascript
+students.unshift("Michael");
+```
+
+Result:
+
+```text
+Michael
+
+John
+
+Mary
+
+David
+```
+
+---
+
+# Removing from the Beginning
+
+## shift()
+
+```javascript
+students.shift();
+```
+
+Removes the first item.
+
+---
+
+# Part 3 — Loops
+
+## Why Do We Need Loops?
+
+Imagine displaying every student:
+
+```javascript
+console.log(students[0]);
+
+console.log(students[1]);
+
+console.log(students[2]);
+
+console.log(students[3]);
+```
+
+This becomes repetitive.
+
+Loops allow us to repeat actions automatically.
+
+---
+
+# The for Loop
+
+A basic `for` loop looks like this:
+
+```javascript
+for(start; condition; increment){
+
+    // code
+
+}
+```
+
+Example:
+
+```javascript
+for(let i = 0; i < 5; i++){
+
+    console.log(i);
+
+}
+```
+
+Output:
+
+```text
+0
+
+1
+
+2
+
+3
+
+4
+```
+
+---
+
+# Looping Through an Array
+
+Example:
+
+```javascript
+const students = [
+
+"John",
+
+"Mary",
+
+"David"
+
+];
+
+
+for(let i = 0; i < students.length; i++){
+
+    console.log(students[i]);
+
+}
+```
+
+Output:
+
+```text
+John
+
+Mary
+
+David
+```
+
+---
+
+# for...of Loop
+
+A simpler way to loop through arrays:
+
+```javascript
+for(let student of students){
+
+    console.log(student);
+
+}
+```
+
+Output:
+
+```text
+John
+
+Mary
+
+David
+```
+
+For beginners, this is often easier to understand.
+
+---
+
+# Part 4 — Objects (Introduction)
+
+Arrays store lists.
+
+Objects store information about one thing.
+
+Example:
+
+A student has:
+
+* Name
+* Age
+* Course
+
+An object represents that student.
+
+```javascript
+const student = {
+
+    name:"John",
+
+    age:22,
+
+    course:"Frontend Development"
+
+};
+```
+
+---
+
+Accessing properties:
+
+```javascript
+console.log(student.name);
+```
+
+Output:
+
+```text
+John
+```
+
+---
+
+```javascript
+console.log(student.course);
+```
+
+Output:
+
+```text
+Frontend Development
+```
+
+---
+
+# Mini Project
+
+# Student Attendance Register
+
+Now we will combine:
+
+* Variables
+* Functions
+* Arrays
+* Objects
+* Loops
+
+to create a simple attendance system.
+
+---
+
+# Project Goal
+
+The application will:
+
+* Allow adding students.
+* Store students in an array.
+* Display all registered students.
+* Show the total number of students.
+
+---
+
+# Project Structure
+
+Create:
+
+```text
+student-attendance/
 
 │
 
@@ -80,926 +936,267 @@ student-registration/
 
 ---
 
-# Step 1 — Building the HTML
-
-## index.html
+# index.html
 
 ```html
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration System</title>
+<html>
 
-    <link rel="stylesheet" href="style.css">
+<head>
+
+<title>
+Student Attendance Register
+</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
+
 <body>
 
 <div class="container">
 
-    <h1>Student Registration System</h1>
+<h1>
+Student Attendance Register
+</h1>
 
-    <div class="card">
 
-        <label>Name</label>
+<input 
+id="studentName"
+placeholder="Enter student name"
+>
 
-        <input
-            type="text"
-            id="studentName"
-            placeholder="Enter student's name"
-        >
 
-        <label>Age</label>
+<button id="addStudent">
 
-        <input
-            type="number"
-            id="studentAge"
-            placeholder="Enter age"
-        >
+Add Student
 
-        <label>Course</label>
+</button>
 
-        <input
-            type="text"
-            id="studentCourse"
-            placeholder="Frontend Development"
-        >
 
-        <button id="registerBtn">
+<h2>
+Students
+</h2>
 
-            Register Student
 
-        </button>
+<ul id="studentList">
 
-    </div>
+</ul>
 
-    <div id="message"></div>
 
-    <hr>
+<p id="totalStudents"></p>
 
-    <h2>Registered Students</h2>
-
-    <div id="studentList">
-
-    </div>
 
 </div>
+
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
 ```
 
 ---
 
-## Explain Every HTML Element
-
-Ask students:
-
-**Why did we give the inputs IDs?**
-
-Example:
-
-```html
-<input id="studentName">
-```
-
-Answer:
-
-Because JavaScript needs a way to find this particular input.
-
-Think of IDs as house addresses.
-
-Without an address...
-
-JavaScript won't know where to go.
-
----
-
-# Step 2 — Styling the Application
-
-## style.css
+# style.css
 
 ```css
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
 
-    background:#eef2f7;
+font-family:Arial;
 
-    font-family:Arial, Helvetica, sans-serif;
+background:#f2f5fa;
 
-    padding:40px;
+padding:40px;
+
 }
+
 
 .container{
 
-    width:700px;
+background:white;
 
-    margin:auto;
+max-width:500px;
 
-    background:white;
+margin:auto;
 
-    padding:30px;
+padding:30px;
 
-    border-radius:10px;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.1);
+border-radius:10px;
 
 }
 
-h1{
-
-    margin-bottom:25px;
-
-    color:#2563eb;
-
-}
-
-.card{
-
-    display:flex;
-
-    flex-direction:column;
-
-}
-
-label{
-
-    margin-top:15px;
-
-    margin-bottom:5px;
-
-    font-weight:bold;
-
-}
 
 input{
 
-    padding:12px;
+padding:10px;
 
-    border:1px solid #ccc;
-
-    border-radius:6px;
-
-    font-size:16px;
+width:70%;
 
 }
+
 
 button{
 
-    margin-top:20px;
+padding:10px;
 
-    padding:14px;
+background:#2563eb;
 
-    background:#2563eb;
+color:white;
 
-    color:white;
-
-    border:none;
-
-    border-radius:6px;
-
-    cursor:pointer;
-
-    font-size:16px;
-
-}
-
-button:hover{
-
-    background:#1d4ed8;
-
-}
-
-#message{
-
-    margin-top:20px;
-
-    font-weight:bold;
-
-}
-
-.student{
-
-    margin-top:20px;
-
-    padding:15px;
-
-    border-left:5px solid #2563eb;
-
-    background:#f8fafc;
-
-    border-radius:6px;
+border:none;
 
 }
 ```
 
 ---
 
-# Instructor Discussion
-
-Ask:
-
-**Did CSS make the application functional?**
-
-No.
-
-It only made it look better.
-
-The application still cannot register students.
-
-That's JavaScript's job.
-
----
-
-# Step 3 — Creating script.js
-
-Initially
+# script.js
 
 ```javascript
-console.log("JavaScript Connected Successfully");
-```
-
-Open the browser.
-
-Open DevTools.
-
-Show Console.
-
-Students should see
-
-```text
-JavaScript Connected Successfully
-```
-
-This confirms JavaScript is connected correctly.
-
----
-
-# Understanding the DOM
-
-Write this HTML.
-
-```html
-<h1>Hello World</h1>
-```
-
-Ask:
-
-Can JavaScript change this?
-
-Yes.
-
-How?
-
-The browser converts HTML into something called the **Document Object Model (DOM).**
-
-Think of it like this.
-
-```text
-HTML
-
-↓
-
-Browser
-
-↓
-
-DOM
-
-↓
-
-JavaScript
-```
-
-JavaScript doesn't manipulate raw HTML.
-
-It manipulates the DOM.
-
----
-
-# Selecting Elements
-
-JavaScript must first find an element.
-
-Example
-
-```javascript
-const heading =
-document.querySelector("h1");
-```
-
-Explain
-
-```javascript
-document
-```
-
-means
-
-> The webpage.
-
----
-
-```javascript
-querySelector()
-```
-
-means
-
-> Find something.
-
----
-
-Now change the heading.
-
-```javascript
-heading.textContent =
-"JavaScript is Awesome!";
-```
-
-Refresh.
-
-The heading changes instantly.
-
-Students usually smile at this moment 😊
-
-Point out:
-
-"This is the first time you've used JavaScript to change a webpage."
-
----
-
-# Selecting Our Inputs
-
-```javascript
-const studentName =
+const studentInput =
 document.querySelector("#studentName");
 
-const studentAge =
-document.querySelector("#studentAge");
 
-const studentCourse =
-document.querySelector("#studentCourse");
-```
+const addButton =
+document.querySelector("#addStudent");
 
-Explain why we use
 
-```javascript
-#
-```
-
-Because we're selecting IDs.
-
----
-
-# Selecting the Button
-
-```javascript
-const registerButton =
-document.querySelector("#registerBtn");
-```
-
----
-
-# Selecting the Output Area
-
-```javascript
 const studentList =
 document.querySelector("#studentList");
 
-const message =
-document.querySelector("#message");
-```
 
----
+const totalStudents =
+document.querySelector("#totalStudents");
 
-# Events
 
-Computers wait for something to happen.
+const students = [];
 
-These "somethings" are called **events**.
 
-Examples
+addButton.addEventListener("click", function(){
 
-* Clicking
-* Typing
-* Hovering
-* Scrolling
-* Double-clicking
-* Pressing a key
 
----
+const name = studentInput.value;
 
-Today we'll use
 
-```text
-click
-```
+students.push(name);
 
----
 
-# Listening for a Click
 
-```javascript
-registerButton.addEventListener(
-"click",
+displayStudents();
 
-function(){
 
-    console.log("Button Clicked");
+studentInput.value = "";
+
 
 });
 ```
 
-Click the button.
+---
 
-Console
+Now create the display function:
 
-```text
-Button Clicked
+```javascript
+function displayStudents(){
 
-Button Clicked
 
-Button Clicked
+studentList.innerHTML = "";
+
+
+for(let student of students){
+
+
+studentList.innerHTML += `
+
+<li>${student}</li>
+
+`;
+
+
+}
+
+
+totalStudents.textContent =
+
+"Total Students: " + students.length;
+
+
+}
 ```
-
-Explain
-
-The computer is now listening.
-
-When the event happens...
-
-The function runs.
 
 ---
 
-# Reading User Input
+# What You Built
 
-Suppose the student typed
+Your application can now:
+
+✅ Receive user input
+✅ Store data in an array
+✅ Add new students
+✅ Loop through students
+✅ Update the webpage dynamically
+
+This is the foundation of many real applications.
+
+---
+
+# Practice Challenges
+
+## Challenge 1
+
+Add a button that clears all students.
+
+Hint:
+
+```javascript
+students.length = 0;
+```
+
+---
+
+## Challenge 2
+
+Prevent empty names from being added.
+
+Hint:
+
+Use:
+
+```javascript
+if()
+```
+
+---
+
+## Challenge 3
+
+Display:
+
+```text
+Welcome John
+```
+
+instead of only:
 
 ```text
 John
 ```
 
-How do we get it?
-
-```javascript
-console.log(studentName.value);
-```
-
-Explain
-
-```javascript
-.value
-```
-
-means
-
-> Give me whatever the user typed.
-
 ---
 
-Try
-
-```javascript
-console.log(studentAge.value);
-
-console.log(studentCourse.value);
-```
-
----
-
-# Registering a Student
-
-Now let's store the values.
-
-```javascript
-registerButton.addEventListener(
-
-"click",
-
-function(){
-
-    const name = studentName.value;
-
-    const age = studentAge.value;
-
-    const course = studentCourse.value;
-
-    console.log(name);
-
-    console.log(age);
-
-    console.log(course);
-
-});
-```
-
----
-
-# Input Validation
-
-Ask the class:
-
-"What if someone clicks Register without entering anything?"
-
-Students should answer:
-
-"We shouldn't allow it."
-
-Exactly.
-
----
-
-Validation
-
-```javascript
-if(
-
-name === "" ||
-
-age === "" ||
-
-course === ""
-
-){
-
-    message.textContent =
-    "Please fill all fields.";
-
-    return;
-
-}
-```
-
-Explain
-
-```javascript
-return;
-```
-
-stops the function immediately.
-
----
-
-# Success Message
-
-If validation passes
-
-```javascript
-message.textContent =
-"Student Registered Successfully!";
-```
-
-Refresh.
-
-Test.
-
-Students should now see messages appear on the page.
-
----
-
-# Creating an Object
-
-Instead of having
-
-```javascript
-name
-
-age
-
-course
-```
-
-Let's group them.
-
-```javascript
-const student = {
-
-    name:name,
-
-    age:age,
-
-    course:course
-
-};
-```
-
-Show the shorthand syntax too:
-
-```javascript
-const student = {
-    name,
-    age,
-    course
-};
-```
-
-Explain why the shorthand works.
-
----
-
-Print it
-
-```javascript
-console.log(student);
-```
-
-Console
-
-```text
-{
-
-name:"John",
-
-age:"22",
-
-course:"Frontend"
-
-}
-```
-
-Explain
-
-One object.
-
-Three properties.
-
-Exactly how real applications store records.
-
----
-
-# Displaying the Student
-
-Now update the webpage.
-
-```javascript
-studentList.innerHTML =
-
-`
-<div class="student">
-
-<h3>${student.name}</h3>
-
-<p>Age: ${student.age}</p>
-
-<p>Course: ${student.course}</p>
-
-</div>
-
-`;
-```
-
-Run.
-
-Students finally see information appear.
-
-Huge milestone.
-
----
-
-# Explain Template Literals
-
-Old JavaScript
-
-```javascript
-"Hello " + name
-```
-
-Modern
-
-```javascript
-`Hello ${name}`
-```
-
-Much cleaner.
-
----
-
-# Complete JavaScript File
-
-```javascript
-const studentName = document.querySelector("#studentName");
-const studentAge = document.querySelector("#studentAge");
-const studentCourse = document.querySelector("#studentCourse");
-
-const registerButton = document.querySelector("#registerBtn");
-
-const studentList = document.querySelector("#studentList");
-
-const message = document.querySelector("#message");
-
-registerButton.addEventListener("click", function () {
-
-    const name = studentName.value.trim();
-
-    const age = studentAge.value.trim();
-
-    const course = studentCourse.value.trim();
-
-    if (
-        name === "" ||
-        age === "" ||
-        course === ""
-    ) {
-
-        message.textContent =
-            "Please fill all fields.";
-
-        message.style.color = "red";
-
-        return;
-
-    }
-
-    const student = {
-
-        name,
-
-        age,
-
-        course
-
-    };
-
-    message.textContent =
-        "Student Registered Successfully!";
-
-    message.style.color = "green";
-
-    studentList.innerHTML = `
-
-    <div class="student">
-
-        <h3>${student.name}</h3>
-
-        <p>Age: ${student.age}</p>
-
-        <p>Course: ${student.course}</p>
-
-    </div>
-
-    `;
-
-});
-```
-
----
-
-# Live Exercise 1
-
-Add another field.
-
-```text
-Email
-```
-
-Display it.
-
----
-
-# Live Exercise 2
-
-Add another field.
-
-```text
-Phone Number
-```
-
----
-
-# Live Exercise 3
-
-Add another field.
-
-```text
-Department
-```
-
----
-
-# Challenge
-
-Instead of
-
-```text
-Student Registered Successfully
-```
-
-Display
-
-```text
-Welcome John!
-
-Registration Completed Successfully.
-```
-
-(Hint: use the student's name in the message.)
-
----
-
-# Common Beginner Mistakes
-
-❌ Forgetting `.value`
-
-```javascript
-console.log(studentName);
-```
-
-prints the HTML element, **not** what the user typed.
-
-Use:
-
-```javascript
-console.log(studentName.value);
-```
-
----
-
-❌ Misspelling IDs
-
-HTML
-
-```html
-id="studentName"
-```
-
-JavaScript
-
-```javascript
-"#studentname"
-```
-
-IDs are case-sensitive.
-
----
-
-❌ Forgetting `#`
-
-Wrong
-
-```javascript
-document.querySelector("studentName");
-```
-
-Correct
-
-```javascript
-document.querySelector("#studentName");
-```
-
----
-
-❌ Forgetting `return`
-
-Without it, the code continues running even after validation fails.
-
----
-
-❌ Not trimming input
-
-Without `.trim()`:
-
-```text
-"     "
-```
-
-is treated as valid input.
-
-Always use:
-
-```javascript
-value.trim()
-```
-
----
-
-# Instructor Wrap-Up
-
-Today students learned to:
-
-* Connect JavaScript to HTML
-* Understand the DOM
-* Select HTML elements
-* Respond to button clicks
-* Read user input
-* Validate form data
-* Create JavaScript objects
-* Display dynamic content using `innerHTML`
-* Use template literals
-
-## Looking Ahead (Session 2)
-
-Tell the students:
-
-> "Right now, our application can only display **one student**. Every new registration replaces the previous one. In the next session, we'll learn **arrays**, **loops**, and **array methods** so we can store and display **multiple students**, search through them, and eventually build a complete Student Management Dashboard."
-
-This creates anticipation and shows how today's work forms the foundation for more advanced JavaScript concepts.
+# Session 2 Summary
+
+Today you learned:
+
+* What functions are and why they matter.
+* Parameters and arguments.
+* Returning values.
+* Arrays and array methods.
+* How to add and remove items.
+* How loops work.
+* Basic objects.
+* How to store and display multiple pieces of data.
+
+In the next session, you will learn how JavaScript controls webpages using the **DOM (Document Object Model)** and how to create interactive applications with buttons, forms, and user actions.
