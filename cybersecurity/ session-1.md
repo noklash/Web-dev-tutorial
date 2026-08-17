@@ -1,24 +1,24 @@
-Cybersecurity Crash Course
+**Cybersecurity Crash Course**  
+**3-Session Technical Introduction**
 
-3-Session Technical Introduction
+**Level:** Beginner / Early Technical  
+**Audience:** Students ages 16–20  
+**Prerequisites:** HTML, CSS, JavaScript, basic AI use and prompting
 
-Level: Beginner / Early Technical
-Audience: Students ages 16–20
-Prerequisites: HTML, CSS, JavaScript, basic AI use and prompting
+---
 
-⸻
+### SESSION 1: HOW THE INTERNET AND WEB APPLICATIONS WORK
 
-SESSION 1: HOW THE INTERNET AND WEB APPLICATIONS WORK
+#### 1.1 The Internet Is a Network of Networks
 
-1.1 The Internet Is a Network of Networks
+When you open a website, your computer is communicating with another computer somewhere else on the planet.
 
-When you open a website, your computer is communicating with another computer somewhere else.
+A simplified model of what happens:
 
-A simplified model:
-
+```
 Your device
     ↓
-Router
+Router / ISP
     ↓
 Internet
     ↓
@@ -27,1796 +27,653 @@ Server
 Application
     ↓
 Database
+```
 
-A client is the device or application requesting something.
+- A **client** is the device or application that requests something.  
+- A **server** is a computer or service that provides something.
 
-A server is a computer or service providing something.
+Example:  
+Browser = client  
+Instagram’s servers = server  
 
-For example:
+When you open Instagram, your browser sends requests to Instagram’s servers and receives responses back.
 
-Browser = client
-Instagram server = server
+#### 1.2 IP Addresses
 
-When you open Instagram, your browser sends requests to Instagram’s servers and receives responses.
+Every device communicating over an IP (Internet Protocol) network uses an **IP address**.
 
-⸻
+Examples:  
+- IPv4: `192.168.1.10`  
+- IPv6: `2001:db8::1`
 
-1.2 IP Addresses
+Think of an IP address as a network postal address. Your browser ultimately needs one to know where to send traffic.
 
-Every device communicating over an IP (Internet Protocol) network uses an IP address.
+**Two major types:**
 
-Example:
+**Private IP addresses** (used inside local networks)  
+Common ranges:  
+- `192.168.x.x`  
+- `10.x.x.x`  
+- `172.16.x.x` – `172.31.x.x`
 
-192.168.1.10
+**Public IP addresses**  
+Used to identify networks or devices on the public internet.
 
-or an IPv6 address such as:
+#### 1.3 DNS (Domain Name System)
 
-2001:db8::1
+You don’t type `142.250.x.x` to visit Google.  
+You type `google.com`.
 
-Think of an IP address as a network address.
+DNS translates human-readable domain names into IP addresses.
 
-Your browser ultimately needs an address to know where to send network traffic.
+Simplified flow:
 
-There are two major types:
-
-Private IP addresses
-
-Used inside local networks.
-
-Common ranges include:
-
-192.168.x.x
-10.x.x.x
-172.16.x.x - 172.31.x.x
-
-Public IP addresses
-
-Used to identify networks or devices communicating across the public internet.
-
-⸻
-
-1.3 DNS
-
-You don’t normally type:
-
-142.250.x.x
-
-to access Google.
-
-You type:
-
-google.com
-
-DNS (Domain Name System) translates domain names into IP addresses.
-
-Simplified:
-
+```
 google.com
      ↓
     DNS
      ↓
 IP address
      ↓
-Google server
+Google’s server
+```
 
-Try it.
+**Try it yourself:**
 
-Linux / macOS
-
+Linux / macOS:  
+```bash
 nslookup google.com
-
-or:
-
+# or
 dig google.com
+```
 
-Windows
-
+Windows:  
+```bash
 nslookup google.com
+```
 
-You should see information about the domain and its associated addresses.
+You should see the domain and its associated IP addresses.
 
-⸻
+#### 1.4 HTTP and HTTPS
 
-1.4 HTTP and HTTPS
+Web browsers talk to web servers using **HTTP** (Hypertext Transfer Protocol).  
+**HTTPS** is HTTP Secure (encrypted).
 
-Web browsers communicate with web servers using HTTP (Hypertext Transfer Protocol).
+A simplified request:
 
-HTTPS means HTTP Secure.
-
-A simplified web request looks like:
-
+```
 GET / HTTP/1.1
 Host: example.com
+```
 
-The server sends a response:
+Server response:
 
+```
 HTTP/1.1 200 OK
 Content-Type: text/html
+```
 
 Your browser receives the response and renders the page.
 
-The important idea:
+Core idea:
 
-Browser
-   ↓
-HTTP request
-   ↓
-Web server
-   ↓
-HTTP response
-   ↓
-Browser
+```
+Browser → HTTP request → Web server → HTTP response → Browser
+```
 
-⸻
+#### 1.5 HTTP Methods
 
-1.5 HTTP Methods
+Common methods:
 
-Common HTTP methods include:
+| Method   | Purpose                          | Example          |
+|----------|----------------------------------|------------------|
+| GET      | Request information              | `GET /profile`   |
+| POST     | Send information to the server   | `POST /login`    |
+| PUT/PATCH| Modify existing information      | `PATCH /users/123` |
+| DELETE   | Request deletion                 | `DELETE /users/123` |
 
-GET
+APIs often look like this:
 
-Request information.
-
-GET /profile
-
-POST
-
-Send information to the server.
-
-POST /login
-
-PUT / PATCH
-
-Modify existing information.
-
-DELETE
-
-Request deletion of something.
-
-For example, an API (Application Programming Interface) might have:
-
+```
 GET    /users/123
 POST   /users
 PATCH  /users/123
 DELETE /users/123
+```
 
-This becomes important in cybersecurity because attackers often interact with applications by sending requests.
+This matters in cybersecurity because attackers frequently interact with applications simply by crafting and sending requests.
 
-⸻
+#### 1.6 HTTP Status Codes
 
-1.6 HTTP Status Codes
+You’ve seen `404 Not Found`. Other important ones:
 
-You’ve probably seen:
+- `200 OK`  
+- `301` / `302` Redirect  
+- `400 Bad Request`  
+- `401 Unauthorized`  
+- `403 Forbidden`  
+- `404 Not Found`  
+- `500 Internal Server Error`
 
-404 Not Found
+Two critical concepts:
 
-Other important codes:
+- **Authentication** → “Who are you?”  
+- **Authorization** → “What are you allowed to do?”
 
-200 OK
-301 Redirect
-302 Redirect
-400 Bad Request
-401 Unauthorized
-403 Forbidden
-404 Not Found
-500 Internal Server Error
+Example:  
+You log into a university portal.  
+Authentication: “Yes, you are student123.”  
+Authorization: “Student123 can view their own grades but cannot change anyone else’s.”
 
-Two especially important concepts:
+#### 1.7 Browser Developer Tools
 
-Authentication
+Your browser shows a huge amount of what is happening under the hood.
 
-Who are you?
+Open Developer Tools:  
+Right-click → Inspect → **Network** tab → Reload the page.
 
-Authorization
+You will see requests for:  
+document, stylesheets, JavaScript, images, fonts, API calls, etc.
 
-What are you allowed to do?
+Click any request and inspect:  
+- URL  
+- Method  
+- Status code  
+- Headers  
+- Request / Response body  
 
-Example:
+This is one of the most useful tools for anyone interested in web security.
 
-You successfully log into a university system.
+#### 1.8 Cookies
 
-Authentication:
+Websites need ways to remember information about you.  
+A **cookie** is a small piece of data the browser stores for a website.
 
-“Yes, you are student123.”
+Common uses:  
+- Login sessions  
+- Preferences  
+- Shopping carts  
+- Tracking  
+- Application state  
 
-Authorization:
+Example: `session_id=abc123`
 
-“Student123 can view their grades but cannot modify another student’s grades.”
+#### 1.9 Sessions
 
-⸻
+When you log in, the server needs to remember that you are authenticated.
 
-1.7 Browser Developer Tools
+Simplified flow:
 
-Your browser exposes a lot of what is happening underneath a website.
-
-Open Developer Tools:
-
-Right click → Inspect
-
-Then open:
-
-Network
-
-Reload a website.
-
-You will see requests such as:
-
-document
-stylesheet
-JavaScript
-images
-API requests
-fonts
-
-Click one request and inspect:
-
-* URL
-* Method
-* Status
-* Headers
-* Request data
-* Response
-
-This is one of the most useful tools you can learn as someone interested in web security.
-
-⸻
-
-1.8 Cookies
-
-Websites need ways to remember information about you.
-
-A cookie is a small piece of data stored by the browser for a website.
-
-Cookies can be used for:
-
-* Login sessions
-* Preferences
-* Shopping carts
-* Tracking
-* Other application state
-
-You might see something like:
-
-session_id=abc123
-
-⸻
-
-1.9 Sessions
-
-When you log into a website, the server needs to remember that you’re authenticated.
-
-A simplified process:
-
+```
 Username + Password
         ↓
-      Server
+      Server validates
         ↓
-   Credentials valid
+   Creates session
         ↓
- Create session
+Browser receives session identifier (usually via cookie)
         ↓
-Browser receives session identifier
-        ↓
-Browser sends session identifier
+Browser sends the identifier on later requests
         ↓
 Server recognises your session
+```
 
-This is why session security matters.
+If an attacker steals a valid session identifier, they may access the account without knowing the password. This is why session security is critical.
 
-If an attacker obtains a valid session, they may potentially access the account without knowing the original password.
+#### 1.10 localStorage and sessionStorage
 
-⸻
+Web apps can also store data in the browser.
 
-1.10 localStorage and sessionStorage
+Open Developer Tools → **Application** → Storage  
+Look at: Cookies, Local Storage, Session Storage
 
-Web applications can also store information in browser storage.
+Key differences:  
+- **Cookies** – can be sent automatically with every request  
+- **localStorage** – persists until cleared  
+- **sessionStorage** – usually lasts only for the tab/session  
 
-Open Developer Tools:
+Never store sensitive information in browser storage without understanding the security implications.
 
-Application → Storage
+#### 1.11 Security Starts at the Browser
 
-Look at:
+You have now seen the full chain:
 
-Cookies
-Local Storage
-Session Storage
+```
+DNS → IP → HTTP/HTTPS → Requests → Responses → Cookies → Sessions → Browser storage
+```
 
-The important difference:
+These are not only web-development concepts — they form the **attack surface** of a web application.
 
-* Cookies: Can be sent automatically with web requests.
-* localStorage: Data remains in the browser until removed.
-* sessionStorage: Data generally lasts for the browser tab/session.
+Attackers look for:  
+- Weak authentication  
+- Bad session handling  
+- Poor input validation  
+- Exposed information  
+- Broken authorization  
+- Vulnerable APIs  
 
-Don’t store sensitive information in browser storage without understanding the security implications.
+---
 
-⸻
+### SESSION 1 PRACTICAL LABS
 
-1.11 Security Starts at the Browser
+**Lab 1 – Explore a Website**  
+Use Developer Tools (Network tab). Find:  
+1. Main HTML request  
+2. A JavaScript file  
+3. A CSS file  
+4. An image  
+5. An API request (if present)  
+6. Status code, method, and response headers for each  
 
-You’ve now seen:
-
-DNS
- ↓
-IP
- ↓
-HTTP/HTTPS
- ↓
-Requests
- ↓
-Responses
- ↓
-Cookies
- ↓
-Sessions
- ↓
-Browser storage
-
-These aren’t just web-development concepts.
-
-They are part of the attack surface of a web application.
-
-An attacker may look for:
-
-* Weak authentication
-* Bad session handling
-* Poor input validation
-* Exposed information
-* Broken authorization
-* Vulnerable APIs
-
-⸻
-
-SESSION 1 PRACTICAL LAB
-
-Lab 1: Explore a Website
-
-Use your browser Developer Tools.
-
-Find:
-
-1. The main HTML request.
-2. A JavaScript file.
-3. A CSS file.
-4. An image request.
-5. An API request if one exists.
-6. The HTTP status code for each.
-7. The request method.
-8. The response headers.
-
-⸻
-
-Lab 2: Explore DNS
-
-Run:
-
+**Lab 2 – Explore DNS**  
+```bash
 nslookup example.com
+```
+Identify the domain, IP address(es), and the DNS server that answered.
 
-Identify:
+**Lab 3 – Explore Browser Storage**  
+Developer Tools → Application → Cookies / Local Storage / Session Storage  
+Ask: What information is this site storing about me?  
+Do **not** modify or delete anything important.
 
-* Domain
-* IP address
-* DNS server responding to your request
+---
 
-⸻
+### SESSION 1 CHECKPOINT
 
-Lab 3: Explore Your Browser
+You should understand:  
+Client • Server • IP address • DNS • HTTP/HTTPS • HTTP methods • Status codes • Authentication • Authorization • Cookies • Sessions • Browser storage • Developer Tools
 
-Open:
+### SESSION 1 QUIZ
 
-Developer Tools
-→ Application
-→ Cookies
-→ Local Storage
-→ Session Storage
+1. What does DNS do?  
+   → Translates domain names into IP addresses.
 
-Ask yourself:
+2. Difference between authentication and authorization?  
+   → Authentication verifies identity. Authorization determines what that identity is allowed to do.
 
-What information is this website storing in my browser?
+3. What does HTTP 404 mean?  
+   → The requested resource was not found.
 
-Do not modify or delete anything important.
+4. What is a cookie?  
+   → Small data stored by a website in your browser.
 
-⸻
+5. Why are Developer Tools useful in cybersecurity?  
+   → They expose requests, responses, scripts, storage, and other behaviour of web applications.
 
-SESSION 1 CHECKPOINT
+---
 
-You should now understand:
+### SESSION 2: IDENTITY, ATTACKS AND SECURE APPLICATIONS
 
-* Client
-* Server
-* IP address
-* DNS
-* HTTP
-* HTTPS
-* HTTP methods
-* HTTP status codes
-* Authentication
-* Authorization
-* Cookies
-* Sessions
-* Browser storage
-* Developer Tools
+#### 2.1 Authentication
 
-⸻
+Authentication answers: **“Who are you?”**
 
-SESSION 1 QUIZ
+Common factors:  
+- Something you **know** (password, PIN)  
+- Something you **have** (phone, security key)  
+- Something you **are** (fingerprint, face)
 
-1. What does DNS do?
+**MFA (Multi-Factor Authentication)** combines two or more factors and significantly raises the bar for attackers.
 
-Answer: Translates domain names into IP addresses.
+#### 2.2 Passwords and Password Hashing
 
-2. What is the difference between authentication and authorization?
+A secure application must **never** store passwords in plain text:
 
-Answer: Authentication verifies who you are. Authorization determines what you’re allowed to access or do.
-
-3. What does HTTP 404 mean?
-
-Answer: The requested resource was not found.
-
-4. What is a cookie?
-
-Answer: Data stored by a website in your browser.
-
-5. Why are Developer Tools useful to cybersecurity students?
-
-Answer: They expose requests, responses, scripts, storage and other behaviour occurring inside web applications.
-
-⸻
-
-SESSION 2: IDENTITY, ATTACKS AND SECURE APPLICATIONS
-
-2.1 Authentication
-
-Authentication answers:
-
-Who are you?
-
-Common authentication factors include:
-
-Something you know
-
-Password or PIN.
-
-Something you have
-
-Phone, security key or authentication device.
-
-Something you are
-
-Fingerprint or face.
-
-MFA (Multi-Factor Authentication) combines multiple authentication factors.
-
-⸻
-
-2.2 Passwords and Password Hashing
-
-A secure application shouldn’t store passwords like:
-
+```
 username: john
-password: football123
+password: football123   ← bad
+```
 
-If attackers obtain the database, they immediately have the passwords.
+Instead, applications use **password hashing**:
 
-Instead, applications should use password hashing.
+```
+Password → Hashing algorithm → Stored hash
+```
 
-Simplified:
+A good hash is designed to be computationally difficult to reverse.
 
-Password
-   ↓
-Password hashing algorithm
-   ↓
-Stored hash
+#### 2.3 Hashing vs Encryption vs Encoding
 
-A hash is designed to be computationally difficult to reverse.
+These are often confused:
 
-⸻
+| Concept     | Direction          | Purpose                          | Reversible?      |
+|-------------|--------------------|----------------------------------|------------------|
+| Hashing     | One-way            | Password storage, integrity      | No (by design)   |
+| Encryption  | Two-way with key   | Confidentiality                  | Yes (with key)   |
+| Encoding    | Representation     | Data format (e.g. Base64)        | Yes (anyone can) |
 
-2.3 Hashing vs Encryption vs Encoding
+Encoding is **not** encryption or security.
 
-These are different concepts.
+#### 2.4 Hash Demonstration
 
-Hashing
-
-Generally one-way.
-
-data → hash
-
-Used for things such as password verification and integrity checks.
-
-Encryption
-
-Designed to be reversible with the appropriate key.
-
-plaintext
-   ↓
-encryption + key
-   ↓
-ciphertext
-   ↓
-decryption + key
-   ↓
-plaintext
-
-Encoding
-
-Changes data into another representation.
-
-Example:
-
-text → Base64
-
-Encoding is not encryption.
-
-Anyone who knows the encoding can decode it.
-
-⸻
-
-2.4 Hash Demonstration
-
-On Linux:
-
+Linux / macOS:  
+```bash
 echo -n "hello" | sha256sum
-
-Now:
-
 echo -n "Hello" | sha256sum
+```
 
-Notice how changing one character produces a completely different hash.
+Notice that changing one character produces a completely different hash.
 
-You can also experiment with:
+**Important:** SHA-256 is **not** recommended for password storage.  
+Use dedicated algorithms designed to be slow and memory-hard:  
+**Argon2**, **bcrypt**, **scrypt**.
 
-echo -n "password123" | sha256sum
+#### 2.5 Brute-Force and Dictionary Attacks
 
-Important:
+If an attacker obtains password hashes, they can try common passwords (dictionary attack) or every possible combination (brute force).
 
-SHA-256 is not the recommended way to store passwords.
+Defences go beyond “make the password complicated”:  
+- Long, unique passwords  
+- Strong password hashing  
+- Rate limiting  
+- Account lockouts / progressive delays  
+- MFA  
 
-Modern password storage should use dedicated password hashing algorithms such as:
+#### 2.6 Phishing
 
-* Argon2
-* bcrypt
-* scrypt
+Phishing tricks a person into revealing information or performing an unsafe action.
 
-These are deliberately designed to make password guessing more expensive.
+Classic pattern:  
+Fear → Urgency → Click → Fake login page → Credentials stolen
 
-⸻
+#### 2.7 URL Anatomy
 
-2.5 Brute Force and Dictionary Attacks
-
-Suppose an attacker obtains a password hash.
-
-They might try:
-
-password
-123456
-password123
-qwerty
-football
-...
-
-and hash each guess.
-
-This is a simplified dictionary attack.
-
-A brute-force attack systematically tries combinations.
-
-The defence is not simply:
-
-“Make the password complicated.”
-
-Better defences include:
-
-* Long passwords
-* Unique passwords
-* Strong password hashing
-* Rate limiting
-* MFA
-
-⸻
-
-2.6 Phishing
-
-Phishing is an attack designed to trick you into revealing information or performing an unsafe action.
-
-Example:
-
-Your university account will be deleted.
-Verify immediately:
-https://example-security-login.com
-
-The attacker is trying to create:
-
-Fear
- ↓
-Urgency
- ↓
-Click
- ↓
-Fake login
- ↓
-Credentials stolen
-
-⸻
-
-2.7 URL Anatomy
-
-Consider:
-
+```
 https://login.example.com/account?id=123
+```
 
-Break it down:
+- `https://` → Protocol  
+- `login` → Subdomain  
+- `example.com` → Domain  
+- `/account` → Path  
+- `?id=123` → Query parameter  
 
-https://
+Dangerous example:  
+`https://instagram.com.security.example.com`  
 
-Protocol
+The real domain is still **example.com**. The word “instagram” appearing earlier does not make it Instagram.
 
-login
+#### 2.8 Smishing
 
-Subdomain
+Phishing delivered via SMS / text messages.
 
-example.com
+Warning signs: unexpected message, urgency, payment request, suspicious short links, requests for personal data.
 
-Domain
+#### 2.9 Social Engineering
 
-/account
+Attacks that target human psychology rather than pure technology.
 
-Path
+Attackers exploit: fear, curiosity, authority, greed, trust, urgency, sympathy.
 
-?id=123
+Even a technically perfect system can be compromised if an authorised user is convinced to hand over access.
 
-Query parameter
+#### 2.10 Cross-Site Scripting (XSS)
 
-Now consider:
+XSS occurs when a web application handles user-controlled input unsafely, allowing attacker-controlled script to run in another user’s browser.
 
-https://instagram.com.security.example.com
+Unsafe example:  
+```js
+output.innerHTML = userInput;   // dangerous
+```
 
-The actual domain is:
+Safer for plain text:  
+```js
+output.textContent = userInput; // treats value as text
+```
 
-example.com
+#### 2.11 Why XSS Matters
 
-The fact that the word “instagram” appears earlier doesn’t make it Instagram.
+If a platform displays usernames or comments without proper handling, an attacker can inject code that runs for other users. Possible outcomes include page manipulation, actions performed as the victim, theft of sensitive data (under certain conditions), or phishing from a trusted site.
 
-⸻
+#### 2.12 Input Validation & Output Encoding
 
-2.8 Smishing
+Never trust user input. Users can submit: normal text, numbers, HTML, JavaScript, unexpected characters, extremely long values, or malformed data.
 
-Smishing is phishing through SMS or text messaging.
+Applications must:  
+1. Validate input (structure, length, allowed characters)  
+2. Encode output safely  
+3. Use safe APIs  
 
-Example:
+Validation alone is not enough.
 
-Your package is waiting.
-Pay ₦1,500 to reschedule:
-https://short-link.example
+#### 2.13 Authorization Bugs & IDOR
 
-Warning signs:
+Example university API:  
+`GET /students/123/grades`
 
-* Unexpected message
-* Urgency
-* Payment request
-* Suspicious link
-* Request for personal information
+Student 123 should only see their own grades.  
+If changing the number to `/students/124/grades` returns another student’s data, the application has a serious authorization failure (often called **IDOR** – Insecure Direct Object Reference, part of broken access control).
 
-⸻
+**Only test this against systems you own or have explicit written permission to test.**
 
-2.9 Social Engineering
+---
 
-Social engineering attacks the human decision-making process.
+### SESSION 2 PRACTICAL LABS
 
-Attackers exploit:
+**Lab 1 – Hashing**  
+Generate hashes for: `hello`, `Hello`, `hello1`, `hello123` and observe the differences.
 
-* Fear
-* Curiosity
-* Authority
-* Greed
-* Trust
-* Urgency
-* Sympathy
+**Lab 2 – Secure Input Handling**  
+Create a local HTML page with an input and output div.  
+Compare `innerHTML` vs `textContent` and understand why the latter is safer for untrusted plain text.
 
-A technically secure system can still be compromised if someone convinces an authorised user to hand over access.
+**Lab 3 – Inspect Authentication**  
+Use a local app or deliberately vulnerable training environment (never real accounts you don’t own).  
+Identify the login request, method, response, cookies, and session information.
 
-⸻
+---
 
-2.10 XSS
+### SESSION 2 CHECKPOINT
 
-XSS (Cross-Site Scripting) occurs when a web application handles user-controlled input unsafely, allowing unintended script content to execute in a user’s browser.
+You should understand:  
+Authentication • MFA • Password hashing • Encryption vs Encoding • Brute-force & dictionary attacks • Phishing • Smishing • Social engineering • URL structure • XSS • Input validation • Authorization • IDOR
 
-Consider:
+### SESSION 2 QUIZ
 
-<input id="name">
-<div id="output"></div>
+1. What does authentication answer? → “Who are you?”  
+2. What does authorization answer? → “What are you allowed to do?”  
+3. Is Base64 encryption? → No, it is encoding.  
+4. What does XSS stand for? → Cross-Site Scripting.  
+5. Why is `textContent` safer than `innerHTML` for untrusted plain text? → It treats the value as text instead of parsing it as HTML.
 
-Unsafe JavaScript:
+---
 
-const name = document.getElementById("name").value;
-document.getElementById("output").innerHTML = name;
+### SESSION 3: NETWORK SECURITY, MALWARE, DEFENCE AND CAREERS
 
-The problem is that innerHTML tells the browser to interpret the value as HTML.
+#### 3.1 Ports
 
-A safer approach for plain text is:
+A computer can run many network services at once. **Ports** identify the communication endpoint for each service.
 
-document.getElementById("output").textContent = name;
+Common ports:  
+- 22 → SSH  
+- 53 → DNS  
+- 80 → HTTP  
+- 443 → HTTPS  
 
-Now the browser treats the value as text.
+Full address example: `192.168.1.10:443`
 
-⸻
+#### 3.2 TCP and UDP
 
-2.11 Why XSS Matters
+- **TCP** – reliable, connection-oriented (connect → send → confirm)  
+- **UDP** – connectionless, lower overhead (send and hope)
 
-Imagine a social platform displaying:
+Both are useful depending on the application’s needs.
 
-Username:
-[ user input ]
+#### 3.3 Listening Services
 
-If the application handles that input incorrectly, an attacker could potentially cause code to execute in another user’s browser.
-
-Possible consequences can include:
-
-* Manipulating the page
-* Performing actions as the user
-* Stealing sensitive information under certain conditions
-* Phishing users through a trusted website
-
-This is why input handling matters.
-
-⸻
-
-2.12 Input Validation
-
-Never assume user input is safe.
-
-Users can submit:
-
-normal text
-numbers
-HTML
-JavaScript
-unexpected characters
-extremely long values
-malformed data
-
-Applications should validate and safely handle input.
-
-Examples:
-
-Age → should be a valid number
-Email → should follow expected structure
-Username → should follow allowed character rules
-
-But validation alone isn’t enough.
-
-Applications also need appropriate output encoding and safe APIs.
-
-⸻
-
-2.13 Authorization Bugs
-
-Imagine a university API:
-
-GET /students/123/grades
-
-Student 123 should only see their own grades.
-
-What if changing the number to:
-
-GET /students/124/grades
-
-returns another student’s grades?
-
-That’s a serious authorization problem.
-
-The application is failing to properly enforce:
-
-Who is allowed to access this resource?
-
-This type of issue is commonly associated with IDOR (Insecure Direct Object Reference) and broader broken access control.
-
-Only test this concept against applications you own or are explicitly authorised to test.
-
-⸻
-
-SESSION 2 PRACTICAL LAB
-
-Lab 1: Hashing
-
-Generate hashes for:
-
-hello
-Hello
-hello1
-hello123
-
-Observe the differences.
-
-⸻
-
-Lab 2: Secure Input Handling
-
-Build a local HTML page with:
-
-<input id="name">
-<button id="submit">Submit</button>
-<div id="output"></div>
-
-Implement both:
-
-output.innerHTML = name;
-
-and:
-
-output.textContent = name;
-
-Understand why the second approach is safer when displaying untrusted plain text.
-
-⸻
-
-Lab 3: Inspect Authentication
-
-Use a local application or a deliberately vulnerable training environment.
-
-Identify:
-
-* Login request
-* HTTP method
-* Response
-* Cookies
-* Session information
-* Authentication state
-
-Do not attempt this against accounts or systems you don’t own.
-
-⸻
-
-SESSION 2 CHECKPOINT
-
-You should now understand:
-
-* Authentication
-* MFA
-* Password hashing
-* Encryption
-* Encoding
-* Brute force
-* Dictionary attacks
-* Phishing
-* Smishing
-* Social engineering
-* URL structure
-* XSS
-* Input validation
-* Authorization
-* IDOR
-
-⸻
-
-SESSION 2 QUIZ
-
-1. What does authentication answer?
-
-Answer: “Who are you?”
-
-2. What does authorization answer?
-
-Answer: “What are you allowed to do?”
-
-3. Is Base64 encryption?
-
-Answer: No. Base64 is encoding.
-
-4. What does XSS stand for?
-
-Answer: Cross-Site Scripting.
-
-5. Why is textContent generally safer than innerHTML for displaying untrusted plain text?
-
-Answer: textContent treats the supplied value as text rather than parsing it as HTML.
-
-⸻
-
-SESSION 3: NETWORK SECURITY, MALWARE, DEFENCE AND CYBERSECURITY CAREERS
-
-3.1 Ports
-
-A computer can run multiple network services.
-
-Ports identify communication endpoints for those services.
-
-Common examples:
-
-22    SSH
-53    DNS
-80    HTTP
-443   HTTPS
-
-An address can therefore be thought of as:
-
-192.168.1.10:443
-
-Where:
-
-192.168.1.10 = IP address
-443           = port
-
-⸻
-
-3.2 TCP and UDP
-
-TCP (Transmission Control Protocol) provides reliable, connection-oriented communication.
-
-UDP (User Datagram Protocol) is connectionless and generally has lower communication overhead.
-
-Simplified:
-
-TCP
-
-Connect
- ↓
-Send
- ↓
-Confirm
- ↓
-Continue
-
-UDP
-
-Send
- ↓
-No built-in delivery confirmation
-
-Both are useful depending on the application.
-
-⸻
-
-3.3 Listening Services
-
-A service can listen for incoming network connections.
-
-On Linux:
-
+On Linux:  
+```bash
 ss -tuln
+```
 
-You might see:
+A line such as `0.0.0.0:22` means something is listening on port 22.  
+Security question: Should this service actually be exposed to the network?
 
-LISTEN
-0.0.0.0:22
+#### 3.4 Attack Surface
 
-This means something is listening for connections on port 22.
+The **attack surface** is every possible point an attacker can interact with a system: web application, SSH, APIs, email, VPN, database, user accounts, cloud services, etc.
 
-The security question becomes:
+Reducing unnecessary exposure reduces risk.
 
-Should this service actually be exposed?
+#### 3.5 Firewalls
 
-Every unnecessary exposed service increases the attack surface.
+A firewall enforces rules about what traffic is allowed:
 
-⸻
+```
+Internet → Firewall → Server
+```
 
-3.4 Attack Surface
+Example rules: Allow TCP 443, Allow TCP 22 only from trusted networks, Block everything else.  
+A firewall is one layer — it does not automatically make an application secure.
 
-The attack surface is the collection of possible points where an attacker could interact with a system.
+#### 3.6 Malware Types
 
-For a university server, this might include:
+- **Trojan** – disguised as legitimate software  
+- **Worm** – spreads between systems  
+- **Ransomware** – encrypts data and demands payment  
+- **Spyware** – secretly collects information  
+- **Botnet** – group of compromised devices controlled by an attacker
 
-Web application
-SSH
-APIs
-Email
-VPN
-Database
-User accounts
-Cloud services
+#### 3.7 How Malware Enters
 
-Reducing unnecessary exposure reduces opportunities for attack.
+Common paths: phishing → malicious attachment → execution; fake software → user installs it; vulnerable software → attacker exploits it.
 
-⸻
+Cybersecurity is a chain:  
+Phishing → stolen credentials → authentication bypassed → access gained → system / data compromised.
 
-3.5 Firewalls
+#### 3.8 Vulnerabilities
 
-A firewall controls network traffic according to rules.
+A **vulnerability** is a weakness that could be exploited: weak passwords, outdated software, poor input validation, broken authorization, misconfigured cloud storage, excessive permissions, exposed services, insecure APIs.
 
-Think:
+#### 3.9 Threat, Vulnerability, Risk
 
-Internet
-   ↓
-Firewall
-   ↓
-Server
+- **Threat** – something capable of causing harm (attacker, malware)  
+- **Vulnerability** – a weakness (weak password)  
+- **Risk** – the potential that the threat will exploit the vulnerability and cause harm
 
-Example rules:
+#### 3.10 Least Privilege
 
-Allow TCP 443
-Allow TCP 22 from trusted network
-Block everything else
+Give users and programs only the permissions they actually need.  
+If an account is compromised, limited privileges limit the damage.
 
-A firewall is one layer of defence.
+#### 3.11 Logs
 
-It does not magically make an application secure.
+Systems generate continuous event records: successful/failed logins, file access, password changes, new devices, etc.
 
-⸻
+A suspicious pattern might look like:  
+multiple failed logins → successful login → password change → recovery email change → new device → large download.
 
-3.6 Malware
+#### 3.12 Incident Response
 
-Malware means malicious software.
+Simplified lifecycle:  
+Detect → Investigate → Contain → Eradicate → Recover → Learn
 
-Trojan
+#### 3.13 SIEM
 
-Malicious software disguised as legitimate software.
+**SIEM** (Security Information and Event Management) systems collect and analyse logs from many sources so analysts can spot patterns that indicate compromise.
 
-Worm
+#### 3.14 Threat Modelling
 
-Malware capable of spreading between systems.
+Think about security **before** something goes wrong.  
+For a student portal, list: Assets, Threats, Vulnerabilities, and Controls (MFA, input validation, access controls, logging, encryption, updates, backups).
 
-Ransomware
+#### 3.15 Build a Secure Student Portal (Project)
 
-Malware that restricts access to data or systems and demands payment.
+Using HTML, CSS and JavaScript, create a local-only fictional student portal with:  
+Login → MFA → Dashboard → Profile → Grades  
 
-Spyware
+Two roles: `student` and `admin`.  
 
-Software designed to secretly collect information.
+Security requirements:  
+- Authentication (username + password + MFA code)  
+- Authorization (students cannot reach `/admin`)  
+- Safe input handling  
+- Simple logging (timestamp, username, success/failure, action)  
+- Basic rate-limiting concept for login attempts  
 
-Botnet
+#### 3.16 Security Investigation Challenge
 
-A collection of compromised devices controlled by an attacker.
-
-⸻
-
-3.7 How Malware Gets In
-
-Common paths include:
-
-Phishing
-   ↓
-Malicious attachment
-   ↓
-User opens it
-   ↓
-Malware executes
-
-Or:
-
-Fake software
-   ↓
-User installs it
-   ↓
-Malware executes
-
-Or:
-
-Vulnerable software
-   ↓
-Attacker exploits vulnerability
-   ↓
-Malware or unauthorised access
-
-Cybersecurity is therefore connected:
-
-Phishing
-   ↓
-Credentials
-   ↓
-Authentication
-   ↓
-Access
-   ↓
-System
-   ↓
-Data
-
-⸻
-
-3.8 Vulnerabilities
-
-A vulnerability is a weakness that could potentially be exploited.
-
-Examples:
-
-* Weak passwords
-* Outdated software
-* Poor input validation
-* Broken authorization
-* Misconfigured cloud storage
-* Excessive permissions
-* Exposed services
-* Insecure APIs
-
-⸻
-
-3.9 Threat, Vulnerability and Risk
-
-These concepts are often confused.
-
-Threat
-
-Something capable of causing harm.
-
-Example:
-
-Attacker
-
-Vulnerability
-
-A weakness.
-
-Example:
-
-Weak password
-
-Risk
-
-The potential for the threat to exploit the vulnerability and cause harm.
-
-Threat
-  +
-Vulnerability
-  ↓
-Risk
-
-⸻
-
-3.10 Least Privilege
-
-Give users and programs only the permissions they need.
-
-Example:
-
-A student account should be able to:
-
-View own grades
-View courses
-Submit assignments
-
-It should not be able to:
-
-Delete university users
-Modify grades
-Access server configuration
-
-If the account is compromised, limiting permissions limits potential damage.
-
-⸻
-
-3.11 Logs
-
-Systems constantly generate events.
-
-Examples:
-
-Login successful
-Login failed
-File accessed
-Connection accepted
-Connection rejected
-Password changed
-New device added
-
-A simplified log:
-
-10:01 Login failed
-10:01 Login failed
-10:02 Login failed
-10:02 Login failed
-10:03 Login successful
-10:03 Password changed
-10:04 Recovery email changed
-10:05 New device added
-
-This should immediately attract attention.
-
-⸻
-
-3.12 Incident Response
-
-Incident response is the process of dealing with a security incident.
-
-A simplified lifecycle:
-
-Detect
-  ↓
-Investigate
-  ↓
-Contain
-  ↓
-Eradicate
-  ↓
-Recover
-  ↓
-Learn
-
-Example:
-
-Someone gains access to a student account.
-
-Detect
-
-Suspicious login discovered.
-
-Investigate
-
-Determine what happened.
-
-Contain
-
-Terminate sessions and secure the account.
-
-Eradicate
-
-Remove the attacker’s access.
-
-Recover
-
-Restore normal account operation.
-
-Learn
-
-Determine how to prevent recurrence.
-
-⸻
-
-3.13 SIEM
-
-SIEM (Security Information and Event Management) systems collect and analyse logs from multiple systems.
-
-Simplified:
-
-Servers ───────┐
-               │
-Applications ──┤
-               │
-Firewalls ─────┤
-               ↓
-              SIEM
-               ↓
-       Security Analyst
-
-A security analyst might investigate:
-
-Thousands of failed logins
-        +
-Successful login
-        +
-Unusual location
-        +
-New device
-
-This could indicate account compromise.
-
-⸻
-
-3.14 Threat Modelling
-
-Threat modelling means thinking about security before something goes wrong.
-
-For a student portal:
-
-Assets
-
-What are we protecting?
-
-Student accounts
-Grades
-Personal information
-Course material
-Financial information
-
-Threats
-
-Who or what could cause harm?
-
-Criminal
-Malicious insider
-Automated attacker
-Compromised account
-
-Vulnerabilities
-
-What could go wrong?
-
-Weak passwords
-XSS
-Broken authorization
-Outdated software
-Exposed API
-
-Controls
-
-What can reduce the risk?
-
-MFA
-Input validation
-Access controls
-Logging
-Encryption
-Updates
-Backups
-
-⸻
-
-3.15 Build a Secure Student Portal
-
-Use your HTML, CSS and JavaScript skills.
-
-Create a local-only fictional student portal.
-
-Features
-
-Login
- ↓
-MFA
- ↓
-Dashboard
- ↓
-Profile
- ↓
-Grades
-
-Create two roles:
-
-student
-admin
-
-⸻
-
-Security requirements
-
-Authentication
-
-Require:
-
-Username
-Password
-MFA code
-
-Authorization
-
-A student should not access:
-
-/admin
-
-Input handling
-
-Safely display user-provided information.
-
-Logging
-
-Record:
-
-Timestamp
-Username
-Success/Failure
-Action
-
-Rate limiting concept
-
-Ask:
-
-What happens if someone sends 10,000 login requests?
-
-Implement a simple local demonstration that limits repeated login attempts.
-
-⸻
-
-3.16 Security Investigation Challenge
-
-Given:
-
-09:12 Failed login: student01
-09:12 Failed login: student01
-09:13 Failed login: student01
-09:13 Failed login: student01
+Given this log sequence:  
+```
+09:12 Failed login: student01 (×4)
 09:14 Successful login: student01
 09:14 Password changed
 09:15 Recovery email changed
 09:16 New device added
 09:17 Large file download
+```
 
-Answer:
-
-1. What happened?
-
-Possible account compromise.
-
-2. What should you investigate?
-
-* Source IP
-* Device
-* Login location
-* Authentication events
-* Password change
-* Recovery information
-* Sessions
-* Downloaded files
-* Other account activity
-
+Questions:  
+1. What likely happened?  
+2. What should you investigate?  
 3. What should happen immediately?
 
-Contain the account and prevent further unauthorised access.
+#### 3.17 Cybersecurity Career Paths
 
-⸻
+Cybersecurity is not one job. Common paths include:
 
-3.17 Cybersecurity Career Paths
+- **Security Operations (SOC Analyst)** – monitoring, logs, SIEM, incident response  
+- **Penetration Testing** – authorised vulnerability testing  
+- **Application Security** – securing software during development (your web skills transfer directly)  
+- **Cloud Security** – protecting cloud infrastructure and IAM  
+- **Digital Forensics** – investigating evidence after incidents  
+- **Incident Response** – containing and recovering from attacks  
+- **Security Engineering** – building secure systems by design  
+- **GRC** (Governance, Risk & Compliance) – policies, risk, auditing, regulations  
 
-Cybersecurity is not one job.
+---
 
-Security Operations
+### SESSION 3 PRACTICAL LABS
 
-SOC (Security Operations Center) Analyst
+**Lab 1** – Inspect listening services with `ss -tuln` and ask which are necessary.  
+**Lab 2** – Create or review a local log file and look for suspicious patterns.  
+**Lab 3** – Threat-model your student portal (Asset | Threat | Vulnerability | Control).
 
-Monitors systems and investigates suspicious activity.
+---
 
-Learn:
+### FINAL CYBERSECURITY CHECKPOINT
 
-Linux
-Networking
-Logs
-SIEM
-Incident response
+You should now be able to explain and, more importantly, **connect**:
 
-⸻
+DNS • IP addresses • HTTP/HTTPS • TCP/UDP • Ports • Cookies • Sessions • Authentication • Authorization • MFA • Hashing • Encryption • Phishing • Social engineering • XSS • Input validation • Vulnerabilities • Malware • Firewalls • Logs • SIEM • Incident response • Threat modelling • Least privilege
 
-Penetration Testing
-
-Tests systems for vulnerabilities with permission.
-
-Learn:
-
-Linux
-Networking
-Web applications
-Programming
-Security testing
-
-⸻
-
-Application Security
-
-Secures software during development.
-
-Learn:
-
-JavaScript
-APIs
-Authentication
-Authorization
-Secure coding
-Web vulnerabilities
-
-Your existing web-development knowledge transfers directly here.
-
-⸻
-
-Cloud Security
-
-Protects infrastructure running on cloud platforms.
-
-Learn:
-
-Linux
-Networking
-Cloud platforms
-IAM
-Containers
-Automation
-
-IAM means Identity and Access Management, the systems and policies used to control who can access what.
-
-⸻
-
-Digital Forensics
-
-Investigates digital evidence after incidents.
-
-Learn:
-
-Operating systems
-Filesystems
-Logs
-Networking
-Evidence handling
-
-⸻
-
-Incident Response
-
-Investigates and contains security incidents.
-
-Learn:
-
-Logs
-Networking
-Operating systems
-Malware
-Investigation
-Automation
-
-⸻
-
-Security Engineering
-
-Builds systems that are secure by design.
-
-Learn:
-
-Programming
-Linux
-Networking
-Cloud
-Infrastructure
-Cryptography
-Automation
-Architecture
-
-⸻
-
-GRC
-
-GRC means Governance, Risk and Compliance.
-
-Focuses on:
-
-Risk
-Policies
-Security controls
-Auditing
-Regulations
-Compliance
-
-Less programming, more organisational security.
-
-⸻
-
-SESSION 3 PRACTICAL LABS
-
-Lab 1: Inspect Network Services
-
-On Linux:
-
-ss -tuln
-
-Identify:
-
-* Listening ports
-* TCP services
-* UDP services
-
-Ask:
-
-Which services are actually necessary?
-
-⸻
-
-Lab 2: Investigate Logs
-
-Create or inspect a local log containing:
-
-login success
-login failure
-password change
-new device
-file access
-
-Look for suspicious patterns.
-
-⸻
-
-Lab 3: Threat Model Your Student Portal
-
-Create four columns:
-
-Asset	Threat	Vulnerability	Control
-Student account	Account takeover	Weak password	MFA
-Grades	Unauthorized modification	Broken authorization	Access control
-Login	Brute force	Unlimited attempts	Rate limiting
-User input	XSS	Unsafe HTML insertion	Safe output handling
-
-⸻
-
-FINAL CYBERSECURITY CHECKPOINT
-
-You should now be able to explain:
-
-DNS
-IP addresses
-HTTP/HTTPS
-TCP/UDP
-Ports
-Cookies
-Sessions
-Authentication
-Authorization
-MFA
-Hashing
-Encryption
-Phishing
-Social engineering
-XSS
-Input validation
-Vulnerabilities
-Malware
-Firewalls
-Logs
-SIEM
-Incident response
-Threat modelling
-Least privilege
-
-More importantly, you should be able to connect them.
-
-For example:
-
-Phishing
-   ↓
-Stolen password
-   ↓
-Authentication bypassed
-   ↓
-Account accessed
-   ↓
-Attacker changes recovery email
-   ↓
-Victim loses account
-   ↓
-Logs reveal suspicious activity
-   ↓
-Incident response begins
+Example chain of thinking:  
+Phishing → stolen password → authentication bypassed → account accessed → recovery email changed → victim loses control → logs reveal the activity → incident response begins.
 
 That is cybersecurity thinking.
 
-⸻
+---
 
-FINAL SELF-ASSESSMENT
+### FINAL SELF-ASSESSMENT
 
-Rate each from 1–5.
+Rate each area 1–5 (interest / aptitude):  
+Web Security • Networking • Programming / Secure Coding • Investigation • Infrastructure • Offensive Security • Defensive Security • Security Engineering
 
-Web Security
+---
 
-How interested are you in understanding how websites and APIs can be attacked and defended?
+### WHERE TO GO NEXT
 
-Networking
+Follow the path that interests you most:  
+- Web Security → HTTP, JavaScript, APIs, Authentication, OWASP, web labs  
+- Networking → TCP/IP, DNS, routing, firewalls, Linux networking  
+- Infrastructure → Linux, processes, filesystems, containers, cloud  
+- Investigation → Logs, SIEM, digital forensics, incident response  
+- Application Security → Programming, OWASP, vulnerability research  
 
-Do IP addresses, DNS, ports and protocols interest you?
+Or start with the universal foundations:  
+Linux + Networking + Programming + Operating Systems + Web Technologies + Security Fundamentals  
 
-Programming
+These transfer into almost every specialisation.
 
-Do you enjoy finding and fixing security problems in code?
+---
 
-Investigation
-
-Would you enjoy analysing logs and figuring out what happened?
-
-Infrastructure
-
-Do Linux, servers, cloud systems and networks interest you?
-
-Offensive Security
-
-Do you enjoy thinking:
-
-“If I were an attacker, where would this system be weak?”
-
-Defensive Security
-
-Do you enjoy thinking:
-
-“How do I make this system harder to attack?”
-
-Security Engineering
-
-Do you enjoy building systems with security controls from the beginning?
-
-⸻
-
-WHERE TO GO NEXT
-
-If web security interested you most:
-
-HTTP
- ↓
-JavaScript
- ↓
-APIs
- ↓
-Authentication
- ↓
-OWASP
- ↓
-Web security labs
-
-If networking interested you:
-
-TCP/IP
- ↓
-DNS
- ↓
-Routing
- ↓
-Firewalls
- ↓
-Linux networking
- ↓
-Network security
-
-If Linux and infrastructure interested you:
-
-Linux
- ↓
-Processes
- ↓
-Filesystems
- ↓
-Networking
- ↓
-Permissions
- ↓
-Containers
- ↓
-Cloud
- ↓
-Cloud security
-
-If investigation interested you:
-
-Linux
- ↓
-Logs
- ↓
-Networking
- ↓
-SIEM
- ↓
-Digital forensics
- ↓
-Incident response
-
-If breaking and fixing applications interested you:
-
-Programming
- ↓
-Web applications
- ↓
-APIs
- ↓
-OWASP
- ↓
-Vulnerability research
- ↓
-Application security
-
-If all of it interested you:
-
-Start with the fundamentals.
-
-Linux
-+
-Networking
-+
-Programming
-+
-Operating Systems
-+
-Web Technologies
-+
-Security Fundamentals
-
-Those foundations transfer into almost every cybersecurity specialization.
-
-⸻
-
-THE CORE IDEA
+### THE CORE IDEA
 
 Cybersecurity is the discipline of understanding:
 
-How systems work
-        ↓
-How systems can fail
-        ↓
-How systems can be attacked
-        ↓
-How attacks can be detected
-        ↓
-How systems can be defended
-        ↓
-How systems can be designed more securely
+How systems work → How they can fail → How they can be attacked → How attacks can be detected → How systems can be defended → How systems can be designed more securely from the start.
 
-You don’t need to decide your cybersecurity career today.
+You do not need to choose a career today.  
+After these three sessions you should be able to ask a much better question:
 
-After these three sessions, you should have enough exposure to ask a much better question:
-
-“Which part of cybersecurity do I actually want to get good at?”
+**“Which part of cybersecurity do I actually want to get good at?”**
